@@ -6,6 +6,7 @@ class Parameters {
   final int age;
   final double bmi;
   final double idealWeight;
+  final double fatPercent;
   final DateTime date;
 
   const Parameters({
@@ -14,6 +15,7 @@ class Parameters {
     @required this.age,
     @required this.bmi,
     @required this.date,
+    @required this.fatPercent,
     @required this.idealWeight,
   });
 
@@ -24,6 +26,7 @@ class Parameters {
       age: map['age'],
       bmi: map['bmi'],
       idealWeight: map['idealWeight'],
+      fatPercent: map['fatPercent'],
       date: map['date'],
     );
   }

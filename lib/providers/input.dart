@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 
 enum Gender {
@@ -14,11 +12,14 @@ class InputProvider with ChangeNotifier {
   int _age = 20;
 
   int get height => _height;
+
   double get weight => _weight;
+
   int get age => _age;
 
   set height(int newHeight) {
     _height = newHeight;
+
     notifyListeners();
   }
 

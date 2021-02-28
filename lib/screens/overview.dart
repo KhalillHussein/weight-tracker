@@ -124,8 +124,9 @@ class OverviewScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 50.0),
-                    child: HistoryList()),
+                  margin: const EdgeInsets.only(top: 50.0),
+                  child: HistoryList(),
+                ),
               ],
             ),
           ),

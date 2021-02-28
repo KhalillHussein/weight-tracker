@@ -21,7 +21,7 @@ class Series {
 
   double leftTitlesInterval;
   double bottomTitlesInterval;
-  final int _divider = 1;
+  final int _divider = 8;
 
   double get avgWeight =>
       data.map((e) => e.weight).reduce((a, b) => a + b) / data.length;
@@ -44,6 +44,20 @@ class Series {
         return FlSpot(
           e.date.millisecondsSinceEpoch.toDouble(),
           avgWeight,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsBMI => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          e.bmi,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsFatPercent => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          e.fatPercent,
         );
       }).toList();
 

@@ -9,8 +9,8 @@ List<MenuItem<int>> items = [
   ),
   MenuItem<int>(
     id: 1,
-    title: 'Планировщик',
-    icon: MdiIcons.calendarEdit,
+    title: 'Зоны ЧСС',
+    icon: MdiIcons.heartPulse,
   ),
   MenuItem<int>(
     id: 2,

@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -16,8 +17,8 @@ class NavigationPage extends StatelessWidget {
       'page': InputScreen(),
     },
     {
-      'title': 'ЖЕЛАЕМЫЙ ВЕС',
-      'page': PlannerScreen(),
+      'title': 'ЗОНЫ СЕРДЦЕБИЕНИЯ',
+      'page': HeartRateScreen(),
     },
     {
       'title': 'СТАТИСТИКА',
@@ -25,9 +26,7 @@ class NavigationPage extends StatelessWidget {
     },
     {
       'title': 'НАСТРОЙКИ',
-      'page': Center(
-        child: Text('Пусто'),
-      ),
+      'page': SettingsScreen(),
     },
   ];
 

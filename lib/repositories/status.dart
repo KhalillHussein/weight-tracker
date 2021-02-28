@@ -32,42 +32,6 @@ class Status {
       return kUnknownText;
     }
   }
-  //
-  // String getFatStatusMale(double maleFatPercent) {
-  //   if (maleFatPercent < 5) {
-  //     return 'НИЗКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)';
-  //   } else if (maleFatPercent >= 5 && maleFatPercent <= 8) {
-  //     return 'АТЛЕТИЧЕСКОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (maleFatPercent > 8 && maleFatPercent <= 12) {
-  //     return 'СПОРТИВНОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (maleFatPercent > 12 && maleFatPercent <= 20) {
-  //     return 'ОБЫЧНОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (maleFatPercent > 20 && maleFatPercent <= 30) {
-  //     return 'ИЗБЫТОЧНЫЙ ЖИР';
-  //   } else if (maleFatPercent > 30) {
-  //     return 'ВЫСОКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)';
-  //   } else {
-  //     return 'НЕИЗВЕСТНО';
-  //   }
-  // }
-  //
-  // String getFatStatusFemale(double femaleFatPercent) {
-  //   if (femaleFatPercent < 15) {
-  //     return 'НИЗКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)';
-  //   } else if (femaleFatPercent >= 15 && femaleFatPercent <= 18) {
-  //     return 'АТЛЕТИЧЕСКОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (femaleFatPercent > 18 && femaleFatPercent <= 22) {
-  //     return 'СПОРТИВНОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (femaleFatPercent > 22 && femaleFatPercent <= 30) {
-  //     return 'ОБЫЧНОЕ ТЕЛОСЛОЖЕНИЕ';
-  //   } else if (femaleFatPercent > 30 && femaleFatPercent <= 40) {
-  //     return 'ИЗБЫТОЧНЫЙ ЖИР';
-  //   } else if (femaleFatPercent > 40) {
-  //     return 'ВЫСОКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)';
-  //   } else {
-  //     return 'НЕИЗВЕСТНО';
-  //   }
-  // }
 
   Color resultFatTextColor(double fatPercent, Gender gender) {
     switch (gender) {
@@ -102,31 +66,6 @@ class Status {
         break;
     }
   }
-  //
-  // Color resultTextFatColor(String result) {
-  //   switch (result) {
-  //     case 'НИЗКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)':
-  //       return kUWResultColor;
-  //       break;
-  //     case 'АТЛЕТИЧЕСКОЕ ТЕЛОСЛОЖЕНИЕ':
-  //       return kNormalResultColor;
-  //       break;
-  //     case 'СПОРТИВНОЕ ТЕЛОСЛОЖЕНИЕ':
-  //       return kOverweightResultColor;
-  //       break;
-  //     case 'ОБЫЧНОЕ ТЕЛОСЛОЖЕНИЕ':
-  //       return kObese1ResultColor;
-  //       break;
-  //     case 'ИЗБЫТОЧНЫЙ ЖИР':
-  //       return kObeseResultColor;
-  //       break;
-  //     case 'ВЫСОКИЙ ПРОЦЕНТ ЖИРА\n(зона риска)':
-  //       return kObeseResultColor;
-  //       break;
-  //     default:
-  //       return kUWResultColor;
-  //   }
-  // }
 
   Color resultBmiTextColor(String result) {
     switch (result) {

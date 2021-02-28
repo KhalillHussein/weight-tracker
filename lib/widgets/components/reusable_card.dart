@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
@@ -8,7 +9,7 @@ class ReusableCard extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   const ReusableCard({
-    @required this.backgroundColor,
+    this.backgroundColor = kInactiveCardColor,
     @required this.child,
     this.pressedFunction,
     this.margin,

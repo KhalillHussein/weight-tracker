@@ -13,6 +13,7 @@ class OverviewProvider with ChangeNotifier {
       weight: 60.12,
       age: 22,
       bmi: 18.18,
+      fatPercent: 8.32,
       idealWeight: 63.32,
       date: DateTime(2021),
     ),
@@ -21,30 +22,33 @@ class OverviewProvider with ChangeNotifier {
       weight: 62,
       age: 22,
       bmi: 18.12,
+      fatPercent: 13.32,
       idealWeight: 63.32,
       date: DateTime(2021, 01, 05),
     ),
-    // Parameters(
-    //   height: 185,
-    //   weight: 64,
-    //   age: 22,
-    //   bmi: 18.7,
-    //   idealWeight: 63.32,
-    //   date: DateTime(2021, 01, 09),
-    // ),
-    // Parameters(
-    //   height: 185,
-    //   weight: 66,
-    //   age: 22,
-    //   bmi: 19.28,
-    //   idealWeight: 52.32,
-    //   date: DateTime.now(),
-    // ),
+    Parameters(
+      height: 185,
+      weight: 64,
+      age: 22,
+      bmi: 18.7,
+      fatPercent: 13.32,
+      idealWeight: 63.32,
+      date: DateTime(2021, 01, 09),
+    ),
+    Parameters(
+      height: 185,
+      weight: 66,
+      age: 22,
+      bmi: 19.28,
+      fatPercent: 13.32,
+      idealWeight: 52.32,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Parameters> get parameters => [..._parameters];
-  int get _difference =>
-      firstItem.weight.round() - lastItem.idealWeight.round();
+
+  double get _difference => firstItem.weight - lastItem.idealWeight;
   WeightStatus _status;
 
   Parameters get lastItem => _parameters.last;
@@ -84,6 +88,7 @@ class OverviewProvider with ChangeNotifier {
   void removeFromList(int id) {
     _parameters
         .removeWhere((element) => element.date.millisecondsSinceEpoch == id);
+    progressValue();
     notifyListeners();
   }
 }

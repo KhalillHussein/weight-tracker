@@ -13,19 +13,24 @@ class ChipsSelector extends StatelessWidget {
     return Consumer<ChipsProvider>(
       builder: (ctx, chips, _) => Transform(
         transform: Matrix4.identity()..scale(0.8),
-        child: ChipsChoice<int>.single(
-          scrollPhysics: NeverScrollableScrollPhysics(),
-          mainAxisSize: MainAxisSize.min,
-          clipBehavior: Clip.none,
-          value: chips.currentIndex,
-          onChanged: (val) => chips.currentIndex = val,
-          choiceStyle: C2ChoiceStyle(showCheckmark: false, borderWidth: 2.0),
-          choiceActiveStyle: C2ChoiceStyle(color: kAccentColor),
-          choiceItems: C2Choice.listFrom<int, String>(
-            source: options,
-            value: (i, v) => i,
-            label: (i, v) => v,
-          ),
+        child: Row(
+          children: [
+            ChipsChoice<int>.single(
+              scrollPhysics: NeverScrollableScrollPhysics(),
+              mainAxisSize: MainAxisSize.min,
+              clipBehavior: Clip.none,
+              value: chips.currentIndex,
+              onChanged: (val) => chips.currentIndex = val,
+              choiceStyle:
+                  C2ChoiceStyle(showCheckmark: false, borderWidth: 2.0),
+              choiceActiveStyle: C2ChoiceStyle(color: kAccentColor),
+              choiceItems: C2Choice.listFrom<int, String>(
+                source: options,
+                value: (i, v) => i,
+                label: (i, v) => v,
+              ),
+            ),
+          ],
         ),
       ),
     );

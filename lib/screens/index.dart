@@ -1,4 +1,4 @@
 export 'input.dart';
 export 'overview.dart';
-export 'planner.dart';
+export 'heartrate.dart';
 export 'results.dart';

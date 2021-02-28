@@ -1,9 +1,10 @@
+import 'package:bmi_calculator/screens/index.dart';
+import 'package:bmi_calculator/widgets/components/bottom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../providers/input.dart';
-import '../widgets/calculate_button.dart';
 import '../widgets/gender_card.dart';
 import '../widgets/input_card.dart';
 import '../widgets/slider_card.dart';
@@ -76,7 +77,17 @@ class InputScreen extends StatelessWidget {
             ),
           ),
         ),
-        CalculateButton(),
+        BottomButton(
+          buttonTitle: 'РАССЧИТАТЬ ИМТ',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ResultsScreen(),
+              ),
+            );
+          },
+        ),
       ],
     );
   }

@@ -1,14 +1,15 @@
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 
 import 'package:bmi_calculator/providers/index.dart';
 
-class Calculations {
+class CalculationsProvider with ChangeNotifier {
   final double weight;
   final int height;
   final int age;
   final Gender gender;
 
-  const Calculations({
+  CalculationsProvider({
     this.weight,
     this.height,
     this.age,
@@ -29,7 +30,29 @@ class Calculations {
 
   double get youngFemaleFatPercent => 1.51 * bmi - 0.70 * age + 1.4;
 
-  double getFatPercent() {
+  double get heartRateFemale => 190.2 / (1 + exp(0.0453 * (age - 107.5)));
+
+  double get heartRateMale => 203.7 / (1 + exp(0.033 * (age - 104.3)));
+
+  double getHeartRateByGender() {
+    switch (gender) {
+      case Gender.male:
+        return heartRateMale;
+        break;
+      case Gender.female:
+        return heartRateFemale;
+        break;
+      default:
+        return 0.0;
+        break;
+    }
+  }
+
+  double percentOfHeartRate(int percent) {
+    return getHeartRateByGender() * (percent / 100);
+  }
+
+  double getFatPercentByGender() {
     switch (gender) {
       case Gender.male:
         if (age < 18) {

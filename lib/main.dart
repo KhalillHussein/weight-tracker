@@ -1,7 +1,7 @@
 import 'package:bmi_calculator/providers/chips.dart';
 import 'package:bmi_calculator/providers/navigation.dart';
 import 'package:bmi_calculator/providers/overview.dart';
-import 'file:///C:/Users/HighR/AndroidStudioProjects/bmi_calculator/lib/repositories/status.dart';
+import 'package:bmi_calculator/repositories/calculations.dart';
 import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,6 +23,16 @@ class BMICalculator extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => OverviewProvider()),
         ChangeNotifierProvider(create: (ctx) => InputProvider()),
+        ChangeNotifierProxyProvider<InputProvider, CalculationsProvider>(
+          create: (ctx) => CalculationsProvider(
+              weight: 0.0, height: 0, age: 0, gender: Gender.male),
+          update: (ctx, input, calc) => CalculationsProvider(
+            weight: input.weight,
+            height: input.height,
+            age: input.age,
+            gender: input.selectedGender,
+          ),
+        ),
         ChangeNotifierProvider(create: (ctx) => NavigationProvider()),
         ChangeNotifierProvider(create: (ctx) => ChipsProvider()),
       ],
