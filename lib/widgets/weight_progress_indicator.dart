@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,8 @@ class WeightProgressIndicator extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: _buildLimits(
-                    weight: overview.firstItem.weight.toStringAsFixed(1),
+                    context,
+                    weight: overview.firstItem.weight.round().toString(),
                     date: DateFormat('d MMM yyy', 'RU')
                         .format(overview.firstItem.date),
                     // '17 Апреля 2018',
@@ -32,15 +34,16 @@ class WeightProgressIndicator extends StatelessWidget {
                   flex: 4,
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: _buildCurrentWeight(
+                    child: _buildCurrentWeight(context,
                         currentWeight:
-                            overview.lastItem.weight.toStringAsFixed(1)),
+                            overview.lastItem.weight.round().toString()),
                   ),
                 ),
                 const Spacer(),
                 Expanded(
                   flex: 2,
                   child: _buildLimits(
+                    context,
                     weight: overview.lastItem.idealWeight.toStringAsFixed(1),
                     date: DateFormat('d MMM yyy', 'RU')
                         .format(overview.lastItem.date),
@@ -68,7 +71,9 @@ class WeightProgressIndicator extends StatelessWidget {
     );
   }
 
-  Widget _buildLimits({String weight, String date}) {
+  Widget _buildLimits(BuildContext context, {String weight, String date}) {
+    final unit =
+        context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -86,8 +91,9 @@ class WeightProgressIndicator extends StatelessWidget {
                 maxLines: 1,
                 textScaleFactor: 1.6,
               ),
+              const SizedBox(width: 3),
               Text(
-                ' кг',
+                unit,
                 style: kInactiveLabelTextStyle.copyWith(fontSize: 12),
                 textScaleFactor: 1.6,
               ),
@@ -108,7 +114,9 @@ class WeightProgressIndicator extends StatelessWidget {
     );
   }
 
-  Widget _buildCurrentWeight({String currentWeight}) {
+  Widget _buildCurrentWeight(BuildContext context, {String currentWeight}) {
+    final unit =
+        context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       children: [
@@ -118,8 +126,9 @@ class WeightProgressIndicator extends StatelessWidget {
           maxLines: 1,
           textScaleFactor: 2.2,
         ),
-        const Text(
-          'кг',
+        const SizedBox(width: 4),
+        Text(
+          unit,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,

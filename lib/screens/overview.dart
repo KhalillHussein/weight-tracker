@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/screens/empty.dart';
+import 'package:bmi_calculator/widgets/basic_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,31 +11,29 @@ import '../widgets/index.dart';
 class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<OverviewProvider>(
-      builder: (ctx, overview, _) => overview.parameters.isEmpty
-          ? EmptyScreen()
-          : Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                        left: 25.0, right: 25.0, top: 30.0, bottom: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(flex: 8, child: _buildChart()),
-                        const Spacer(),
-                        Expanded(flex: 3, child: WeightProgressIndicator()),
-                        const Spacer(),
-                        Expanded(flex: 6, child: _buildBmiStatusIndicator()),
-                      ],
-                    ),
-                  ),
-                ),
-                BottomButton(
-                    onTap: () => _showHistory(context), buttonTitle: 'ИСТОРИЯ')
-              ],
+    return BasicPage<OverviewProvider>(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(
+                  left: 25.0, right: 25.0, top: 30.0, bottom: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(flex: 8, child: _buildChart()),
+                  const Spacer(),
+                  Expanded(flex: 3, child: WeightProgressIndicator()),
+                  const Spacer(),
+                  Expanded(flex: 6, child: _buildBmiStatusIndicator()),
+                ],
+              ),
             ),
+          ),
+          BottomButton(
+              onTap: () => _showHistory(context), buttonTitle: 'ИСТОРИЯ')
+        ],
+      ),
     );
   }
 
@@ -81,7 +80,6 @@ class OverviewScreen extends StatelessWidget {
           child: ReusableCard(
             padding:
                 const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-            backgroundColor: kInactiveCardColor,
             child: BmiStatusIndicator(),
           ),
         ),
@@ -89,7 +87,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _showHistory(BuildContext context) async {
+  void _showHistory(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

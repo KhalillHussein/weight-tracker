@@ -1,7 +1,11 @@
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:bmi_calculator/utils/constants.dart';
 import 'package:bmi_calculator/widgets/components/index.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bmi_calculator/widgets/dialogs.dart';
+import 'package:bmi_calculator/widgets/radio_cell.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -25,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                   textScaleFactor: 0.95,
                 ),
                 _buildMeasurementsItem(context),
-                _buildGraphItem(),
+                _buildGraphItem(context),
               ],
             ),
           ),
@@ -44,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   textScaleFactor: 0.95,
                 ),
-                _buildDeleteItem(),
+                _buildDeleteItem(context),
               ],
             ),
           ),
@@ -77,69 +81,51 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildMeasurementsItem(BuildContext context) {
     return GestureDetector(
+      onTap: () => showBottomRoundDialog(
+        context: context,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 15),
+          child: _SettingsMeasure(),
+        ),
+      ),
+      child: Consumer<RadioProvider>(
+        builder: (ctx, radio, _) => _buildMenuItem(
+          title: 'Единицы измерения',
+          subtitle:
+              '${radio.getMeasureWeightInterpretation()['interpretation']}, ${radio.getMeasureHeightInterpretation()['interpretation']}',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGraphItem(BuildContext context) {
+    return GestureDetector(
+      onTap: () => showBottomRoundDialog(
+        context: context,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 15),
+          child: _SettingsChart(),
+        ),
+      ),
+      child: Consumer<RadioProvider>(
+        builder: (ctx, radio, _) => _buildMenuItem(
+          title: 'График',
+          subtitle: radio.getGraphTypeInterpretation()['name'],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeleteItem(BuildContext context) {
+    return GestureDetector(
       onTap: () {
-        _showDialog(context);
+        showDeleteDialog(context);
       },
-      child: _buildMenuItem(
-        title: 'Единицы измерения',
-        subtitle: 'Единицы измерения для расчетных параметров',
-      ),
-    );
-  }
-
-  Widget _buildGraphItem() {
-    return GestureDetector(
-      child: _buildMenuItem(
-        title: 'График',
-        subtitle: 'Выбор величины, отслеживаемой на графике',
-      ),
-    );
-  }
-
-  Widget _buildDeleteItem() {
-    return GestureDetector(
       child: _buildMenuItem(
         title: 'Удалить все данные',
         subtitle: 'Удалить все сохраненные данные',
       ),
     );
-  }
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5.0),
-              ),
-            ),
-            backgroundColor: kActiveCardColor,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'ЕДИНИЦЫ ИЗМЕРЕНИЯ',
-                  style: kTitleTextStyle,
-                  textScaleFactor: 0.4,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Единицы роста',
-                  style: kInactiveLabelTextStyle,
-                  textScaleFactor: 0.85,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Единицы веса',
-                  style: kInactiveLabelTextStyle,
-                  textScaleFactor: 0.85,
-                ),
-              ],
-            ),
-          );
-        });
   }
 
   Widget _buildMenuItem({String title, String subtitle}) {
@@ -156,21 +142,155 @@ class SettingsScreen extends StatelessWidget {
                 textScaleFactor: 0.5,
               ),
               const SizedBox(height: 5),
-              SizedBox(
-                width: 260,
-                child: Text(
-                  subtitle,
-                  style: kChartLabelTextStyle.copyWith(height: 1.5),
-                  textScaleFactor: 1.2,
-                  maxLines: 4,
-                  softWrap: true,
-                  overflow: TextOverflow.fade,
-                ),
+              Text(
+                subtitle,
+                style: kChartLabelTextStyle.copyWith(height: 1.5),
+                textScaleFactor: 1.2,
+                maxLines: 4,
+                softWrap: true,
+                overflow: TextOverflow.fade,
               ),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class _SettingsMeasure extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final currentMeasureHeight =
+        context.read<RadioProvider>().currentHeightMeasure;
+    final currentMeasureWeight =
+        context.read<RadioProvider>().currentWeightMeasure;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'ЕДИНИЦЫ ИЗМЕРЕНИЯ',
+          style: kAppBarTextStyle.copyWith(
+              fontWeight: FontWeight.w500, letterSpacing: 0.8),
+          textScaleFactor: 1.05,
+        ),
+        const SizedBox(height: 35),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                'Единицы роста',
+                style: kInactiveLabelTextStyle,
+                textScaleFactor: 0.85,
+              ),
+            ),
+            const SizedBox(height: 5),
+            RadioCell<MeasureHeight>(
+              value: MeasureHeight.centimeters,
+              groupValue: currentMeasureHeight,
+              onChanged: (value) => _changeHeightMeasure(context, value),
+              label: 'Сантиметры',
+            ),
+            RadioCell<MeasureHeight>(
+              value: MeasureHeight.footInches,
+              groupValue: currentMeasureHeight,
+              onChanged: (value) => _changeHeightMeasure(context, value),
+              label: 'Футы/Дюймы',
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                'Единицы веса',
+                style: kInactiveLabelTextStyle,
+                textScaleFactor: 0.85,
+              ),
+            ),
+            const SizedBox(height: 5),
+            RadioCell<MeasureWeight>(
+              value: MeasureWeight.kilograms,
+              groupValue: currentMeasureWeight,
+              onChanged: (value) => _changeWeightMeasure(context, value),
+              label: 'Килограммы',
+            ),
+            RadioCell<MeasureWeight>(
+              value: MeasureWeight.pounds,
+              groupValue: currentMeasureWeight,
+              onChanged: (value) => _changeWeightMeasure(context, value),
+              label: 'Фунты',
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Future<void> _changeHeightMeasure(
+      BuildContext context, MeasureHeight measure) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    context.read<RadioProvider>().currentHeightMeasure = measure;
+    // Saves new settings
+    prefs.setInt('heightMeasure', measure.index);
+
+    Navigator.pop(context);
+  }
+
+  Future<void> _changeWeightMeasure(
+      BuildContext context, MeasureWeight measure) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    context.read<RadioProvider>().currentWeightMeasure = measure;
+    // Saves new settings
+    prefs.setInt('weightMeasure', measure.index);
+
+    Navigator.pop(context);
+  }
+}
+
+class _SettingsChart extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final currentChartType = context.read<RadioProvider>().currentGraphType;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'ГРАФИК',
+          style: kAppBarTextStyle.copyWith(
+              fontWeight: FontWeight.w500, letterSpacing: 0.8),
+          textScaleFactor: 1.05,
+        ),
+        const SizedBox(height: 15),
+        RadioCell<GraphType>(
+          value: GraphType.weight,
+          groupValue: currentChartType,
+          onChanged: (value) => _changeChartType(context, value),
+          label: 'Вес',
+        ),
+        RadioCell<GraphType>(
+          value: GraphType.fatPercent,
+          groupValue: currentChartType,
+          onChanged: (value) => _changeChartType(context, value),
+          label: 'Процент жира',
+        ),
+        RadioCell<GraphType>(
+          value: GraphType.bmi,
+          groupValue: currentChartType,
+          onChanged: (value) => _changeChartType(context, value),
+          label: 'ИМТ',
+        ),
+      ],
+    );
+  }
+
+  Future<void> _changeChartType(BuildContext context, GraphType type) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    context.read<RadioProvider>().currentGraphType = type;
+    // Saves new settings
+    prefs.setInt('chartType', type.index);
+
+    Navigator.pop(context);
   }
 }

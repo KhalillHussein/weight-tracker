@@ -50,23 +50,23 @@ class InputScreen extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: Consumer<InputProvider>(
-                    builder: (ctx, calcData, _) => Row(
+                    builder: (ctx, input, _) => Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Expanded(
                           child: InputCard(
                             label: 'ВЕС',
-                            value: calcData.weight.toInt(),
-                            incFunction: calcData.incrementWeight,
-                            decFunction: calcData.decrementWeight,
+                            value: input.labelWeight(),
+                            incFunction: input.incrementWeight,
+                            decFunction: input.decrementWeight,
                           ),
                         ),
                         Expanded(
                           child: InputCard(
                             label: 'ВОЗРАСТ',
-                            value: calcData.age,
-                            incFunction: calcData.incrementAge,
-                            decFunction: calcData.decrementAge,
+                            value: input.age.toString(),
+                            incFunction: input.incrementAge,
+                            decFunction: input.decrementAge,
                           ),
                         ),
                       ],

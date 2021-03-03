@@ -7,7 +7,7 @@ import '../widgets/components/index.dart';
 class InputCard extends StatelessWidget {
   final String label;
 
-  final int value;
+  final String value;
 
   final VoidCallback incFunction;
 
@@ -24,7 +24,6 @@ class InputCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableCard(
       margin: const EdgeInsets.all(3.0),
-      backgroundColor: kInactiveCardColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -38,13 +37,12 @@ class InputCard extends StatelessWidget {
               ),
             ),
           ),
-          //Spacer(),
           Expanded(
             flex: 6,
             child: FittedBox(
               fit: BoxFit.fitHeight,
               child: Text(
-                '$value',
+                value,
                 style: kNumberTextStyle,
               ),
             ),
@@ -54,7 +52,6 @@ class InputCard extends StatelessWidget {
             flex: 7,
             child: FittedBox(
               child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RoundIconButton(
                     icon: MdiIcons.minus,

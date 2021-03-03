@@ -1,6 +1,8 @@
+import 'package:bmi_calculator/models/parameters.dart';
 import 'package:bmi_calculator/providers/chips.dart';
 import 'package:bmi_calculator/providers/navigation.dart';
 import 'package:bmi_calculator/providers/overview.dart';
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:bmi_calculator/repositories/calculations.dart';
 import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +23,34 @@ class BMICalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => OverviewProvider()),
-        ChangeNotifierProvider(create: (ctx) => InputProvider()),
+        ChangeNotifierProvider(create: (ctx) => RadioProvider()),
+        ChangeNotifierProxyProvider<RadioProvider, InputProvider>(
+          create: (ctx) => InputProvider(
+            weightUnit: 0.0,
+            currentWeightMeasure: MeasureWeight.kilograms,
+            currentHeightMeasure: MeasureHeight.centimeters,
+          ),
+          update: (ctx, radio, input) => InputProvider(
+            weightUnit: radio.getMeasureWeightInterpretation()['unit'],
+            currentWeightMeasure: radio.currentWeightMeasure,
+            currentHeightMeasure: radio.currentHeightMeasure,
+          ),
+        ),
         ChangeNotifierProxyProvider<InputProvider, CalculationsProvider>(
           create: (ctx) => CalculationsProvider(
-              weight: 0.0, height: 0, age: 0, gender: Gender.male),
+              weight: 0, height: 0, age: 0, gender: Gender.male, units: 0.0),
           update: (ctx, input, calc) => CalculationsProvider(
+            units: input.weightUnit,
             weight: input.weight,
             height: input.height,
             age: input.age,
             gender: input.selectedGender,
           ),
+        ),
+        ChangeNotifierProxyProvider<RadioProvider, OverviewProvider>(
+          create: (ctx) => OverviewProvider(),
+          update: (ctx, radio, overview) => OverviewProvider()
+            ..weightUnit = radio.getMeasureWeightInterpretation()['unit'],
         ),
         ChangeNotifierProvider(create: (ctx) => NavigationProvider()),
         ChangeNotifierProvider(create: (ctx) => ChipsProvider()),

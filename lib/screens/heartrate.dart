@@ -90,7 +90,7 @@ class HeartRateScreen extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Container(
-              height: 80,
+              height: 60,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -107,57 +107,6 @@ class HeartRateScreen extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     margin: const EdgeInsets.all(30.0),
-  //     child: Column(
-  //       children: [
-  //         ReusableCard(
-  //           backgroundColor: kActiveCardColor,
-  //           child: Stack(
-  //             children: [
-  //               _buildHeartBeatImage(kUWResultColor),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Row(
-  //                     crossAxisAlignment: CrossAxisAlignment.baseline,
-  //                     children: [
-  //                       Text(
-  //                         '60 - 70%',
-  //                         style:
-  //                             kActiveLabelTextStyle.copyWith(wordSpacing: -2),
-  //                         textScaleFactor: 0.95,
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.end,
-  //                     children: [
-  //                       Text(
-  //                         '115 - 134',
-  //                         style: kNumberTextStyle.copyWith(wordSpacing: -6),
-  //                         textScaleFactor: 0.8,
-  //                       ),
-  //                       Text(
-  //                         'уд/мин',
-  //                         style: kInactiveLabelTextStyle,
-  //                         textScaleFactor: 0.8,
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _buildHeartBeatImage(Color color) {
     return Stack(

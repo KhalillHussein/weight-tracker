@@ -18,15 +18,15 @@ class Status {
   String getBmiStatus(double bmi) {
     if (bmi < 18.5) {
       return kUWResultText;
-    } else if (bmi >= 18.5 && bmi <= 24.9) {
+    } else if (bmi >= 18.5 && bmi <= 25) {
       return kNormalResultText;
-    } else if (bmi > 25.0 && bmi <= 29.9) {
+    } else if (bmi > 25.0 && bmi <= 30) {
       return kOverweightResultText;
-    } else if (bmi > 30.0 && bmi <= 34.9) {
+    } else if (bmi > 30.0 && bmi <= 35) {
       return kObese1ResultText;
-    } else if (bmi > 35.0 && bmi <= 39.9) {
+    } else if (bmi > 35.0 && bmi <= 40) {
       return kObese2ResultText;
-    } else if (bmi >= 40.0) {
+    } else if (bmi > 40.0) {
       return kObese3ResultText;
     } else {
       return kUnknownText;

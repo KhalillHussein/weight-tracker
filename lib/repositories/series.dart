@@ -1,19 +1,23 @@
 import 'dart:math';
 
 import 'package:bmi_calculator/providers/chips.dart';
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 
 import '../models/parameters.dart';
 
 class Series {
   final List<Parameters> data;
-  final Period _period;
+  final Period period;
+  final GraphType type;
 
-  Series(this.data, this._period) {
+  Series({this.data, this.period, this.type}) {
+    chartType();
     prepareData();
   }
 
+  double _minY = 0;
+  double _maxY = 0;
   double minX = 0;
   double maxX = 0;
   double minY = 0;
@@ -61,13 +65,8 @@ class Series {
         );
       }).toList();
 
-  double get _minY =>
-      [...spotsCurrentWeight, ...spotsIdealWeight].map((e) => e.y).reduce(min);
-  double get _maxY =>
-      [...spotsCurrentWeight, ...spotsIdealWeight].map((e) => e.y).reduce(max);
-
   double scale() {
-    switch (_period) {
+    switch (period) {
       case Period.all:
         return spotsCurrentWeight.last.x;
         break;
@@ -89,6 +88,47 @@ class Series {
     }
   }
 
+  List<FlSpot> chartType() {
+    switch (type) {
+      case GraphType.weight:
+        {
+          _minY = [...spotsCurrentWeight, ...spotsIdealWeight]
+              .map((e) => e.y)
+              .reduce(min);
+          _maxY = [...spotsCurrentWeight, ...spotsIdealWeight]
+              .map((e) => e.y)
+              .reduce(max);
+          return spotsCurrentWeight;
+        }
+        break;
+      case GraphType.fatPercent:
+        {
+          _minY = [...spotsFatPercent].map((e) => e.y).reduce(min);
+          _maxY = [...spotsFatPercent].map((e) => e.y).reduce(max);
+          return spotsFatPercent;
+        }
+        break;
+      case GraphType.bmi:
+        {
+          _minY = [...spotsBMI].map((e) => e.y).reduce(min);
+          _maxY = [...spotsBMI].map((e) => e.y).reduce(max);
+          return spotsBMI;
+        }
+        break;
+      default:
+        {
+          _minY = [...spotsCurrentWeight, ...spotsIdealWeight]
+              .map((e) => e.y)
+              .reduce(min);
+          _maxY = [...spotsCurrentWeight, ...spotsIdealWeight]
+              .map((e) => e.y)
+              .reduce(max);
+          return spotsCurrentWeight;
+        }
+        break;
+    }
+  }
+
   void prepareData() {
     minX = spotsCurrentWeight.first.x == spotsCurrentWeight.last.x
         ? spotsCurrentWeight.last.x - Duration(hours: 3).inMilliseconds
@@ -97,14 +137,10 @@ class Series {
         ? spotsCurrentWeight.last.x + Duration(hours: 3).inMilliseconds
         : scale();
 
-    debugPrint('minX is: $minX, maxX is: $maxX');
     minY = (_minY / _divider).floorToDouble() * _divider;
     maxY = (_maxY / _divider).ceilToDouble() * _divider;
-    debugPrint('minY is: $minY, maxY is: $maxY');
 
     leftTitlesInterval = max(((maxY - minY) / 3).floorToDouble(), 1);
-    debugPrint('leftTitlesInterval: $leftTitlesInterval');
     bottomTitlesInterval = (maxX - minX) / 4;
-    debugPrint('bottomTitlesInterval: $bottomTitlesInterval');
   }
 }

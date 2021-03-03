@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:bmi_calculator/repositories/calculations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +51,8 @@ class ResultsScreen extends StatelessWidget {
   }
 
   Widget _buildCardResult(BuildContext context) {
+    final unit =
+        context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
     return Consumer3<InputProvider, OverviewProvider, CalculationsProvider>(
         builder: (ctx, input, overview, calculate, _) {
       return ReusableCard(
@@ -76,7 +79,7 @@ class ResultsScreen extends StatelessWidget {
               ),
               _buildBMINormal(),
               const SizedBox(height: 15),
-              _buildIdealWeight(calculate),
+              _buildIdealWeight(calculate, unit),
               const SizedBox(height: 20),
               Text(
                 'Процент жира:',
@@ -107,7 +110,7 @@ class ResultsScreen extends StatelessWidget {
           ),
           SizedBox(height: 5.0),
           Text(
-            '18.5 - 25 кг/м2',
+            '18.5 - 25 kg/m2',
             style: kActiveLabelTextStyle,
             textScaleFactor: 1.1,
           ),
@@ -116,7 +119,7 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildIdealWeight(CalculationsProvider calculate) {
+  Widget _buildIdealWeight(CalculationsProvider calculate, String unit) {
     return Column(
       children: [
         Text(
@@ -128,7 +131,7 @@ class ResultsScreen extends StatelessWidget {
           height: 5.0,
         ),
         Text(
-          '${calculate.idealMinWeight.toStringAsFixed(1)} - ${calculate.idealMaxWeight.toStringAsFixed(1)} кг',
+          '${calculate.idealWeightLabel()} $unit',
           style: kActiveLabelTextStyle,
           textScaleFactor: 1.1,
         ),
@@ -188,13 +191,16 @@ class ResultsScreen extends StatelessWidget {
 
   Map<String, dynamic> toMap(CalculationsProvider value) {
     return <String, dynamic>{
+      'id': DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day)
+          .millisecondsSinceEpoch,
       'height': value.height,
       'weight': value.weight,
       'bmi': value.bmi,
       'idealWeight': value.idealMinWeight,
       'fatPercent': value.getFatPercentByGender(),
       'age': value.age,
-      'date': DateTime.now(),
+      'date': DateTime.now().millisecondsSinceEpoch,
     };
   }
 }

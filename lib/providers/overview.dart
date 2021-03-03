@@ -1,61 +1,60 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:bmi_calculator/helpers/db_helper.dart';
+import 'package:bmi_calculator/providers/base.dart';
 
 import '../models/parameters.dart';
 
 enum WeightStatus { loseWeight, gainWeight }
 
-class OverviewProvider with ChangeNotifier {
-  final List<Parameters> _parameters = [
-    Parameters(
-      height: 185,
-      weight: 60.12,
-      age: 22,
-      bmi: 18.18,
-      fatPercent: 8.32,
-      idealWeight: 63.32,
-      date: DateTime(2021),
-    ),
-    Parameters(
-      height: 185,
-      weight: 62,
-      age: 22,
-      bmi: 18.12,
-      fatPercent: 13.32,
-      idealWeight: 63.32,
-      date: DateTime(2021, 01, 05),
-    ),
-    Parameters(
-      height: 185,
-      weight: 64,
-      age: 22,
-      bmi: 18.7,
-      fatPercent: 13.32,
-      idealWeight: 63.32,
-      date: DateTime(2021, 01, 09),
-    ),
-    Parameters(
-      height: 185,
-      weight: 66,
-      age: 22,
-      bmi: 19.28,
-      fatPercent: 13.32,
-      idealWeight: 52.32,
-      date: DateTime.now(),
-    ),
-  ];
+class OverviewProvider extends BaseRepository<Parameters> {
+  double weightUnit = 1.0;
 
-  List<Parameters> get parameters => [..._parameters];
-
-  double get _difference => firstItem.weight - lastItem.idealWeight;
   WeightStatus _status;
 
-  Parameters get lastItem => _parameters.last;
-  Parameters get firstItem => _parameters.first;
+  List<Parameters> _parameters = [];
 
-  bool get isGainWeight => _status == WeightStatus.gainWeight;
-  bool get isLoseWeight => _status == WeightStatus.loseWeight;
+  @override
+  List<Parameters> get parameters => [..._parameters];
+
+  @override
+  Future<void> loadData() async {
+    final loadedData = await DBHelper.db.getData();
+    finishLoading();
+    _parameters = [for (final item in loadedData) Parameters.fromMap(item)];
+    _parameters = [
+      for (final item in _parameters)
+        Parameters(
+          id: item.id,
+          weight: item.weight * weightUnit,
+          height: item.height,
+          age: item.age,
+          bmi: item.bmi,
+          date: item.date,
+          fatPercent: item.fatPercent,
+          idealWeight: item.idealWeight * weightUnit,
+        )
+    ];
+  }
+
+  @override
+  Future<void> addData(Map<String, dynamic> map) async {
+    startLoading();
+    await DBHelper.db.insert(map);
+    loadData();
+  }
+
+  @override
+  void deleteData(int id) {
+    DBHelper.db.deleteItem(id);
+    loadData();
+    progressValue();
+  }
+
+  void wipeData() {
+    DBHelper.db.clearTable();
+    loadData();
+  }
 
   int progressValue() {
     final int firstValue = firstItem.weight.round();
@@ -76,19 +75,13 @@ class OverviewProvider with ChangeNotifier {
         (lastItem.idealWeight.round() - firstItem.weight.round()).abs());
   }
 
-  void addData(Map<String, dynamic> map) {
-    final params = Parameters.fromMap(map);
-    final index = _parameters.indexWhere((e) =>
-        DateTime(e.date.year, e.date.month, e.date.day) ==
-        DateTime(params.date.year, params.date.month, params.date.day));
-    index < 0 ? _parameters.add(params) : _parameters[index] = params;
-    notifyListeners();
-  }
+  double get _difference => firstItem.weight - lastItem.idealWeight;
 
-  void removeFromList(int id) {
-    _parameters
-        .removeWhere((element) => element.date.millisecondsSinceEpoch == id);
-    progressValue();
-    notifyListeners();
-  }
+  Parameters get lastItem => _parameters.last;
+
+  Parameters get firstItem => _parameters.first;
+
+  bool get isGainWeight => _status == WeightStatus.gainWeight;
+
+  bool get isLoseWeight => _status == WeightStatus.loseWeight;
 }

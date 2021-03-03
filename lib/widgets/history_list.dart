@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/repositories/index.dart';
+import 'package:bmi_calculator/providers/radio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +12,8 @@ import '../widgets/components/index.dart';
 class HistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final unit =
+        context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
     return Consumer<OverviewProvider>(builder: (ctx, overview, _) {
       final List<Parameters> historyList =
           overview.parameters.reversed.toList();
@@ -23,8 +25,8 @@ class HistoryList extends StatelessWidget {
         itemCount: historyList.length,
         itemBuilder: (ctx, index) => Dismissible(
           direction: DismissDirection.endToStart,
-          onDismissed: (direction) => overview
-              .removeFromList(historyList[index].date.millisecondsSinceEpoch),
+          onDismissed: (direction) =>
+              overview.deleteData(historyList[index].id),
           key: Key(historyList[index].date.millisecondsSinceEpoch.toString()),
           background: slideLeftBackground(),
           child: ReusableCard(
@@ -33,42 +35,50 @@ class HistoryList extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
             child: Column(
               children: [
-                _buildTop(historyList, index),
-                _buildBottom(historyList, index, overview),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      DateFormat('dd-MM-yyyy h:mm', 'RU')
+                          .format(historyList[index].date),
+                      style: kActiveLabelTextStyle.copyWith(
+                          color: Colors.white.withOpacity(0.9)),
+                      textScaleFactor: 0.9,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      children: [
+                        Text(
+                          historyList[index].weight.toStringAsFixed(1),
+                          style: kNumberTextStyle,
+                          textScaleFactor: 0.8,
+                        ),
+                        const SizedBox(width: 3),
+                        Text(
+                          unit,
+                          style: kNumberTextStyle.copyWith(
+                              fontWeight: FontWeight.w500),
+                          textScaleFactor: 0.4,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    _buildSubtitle(historyList, index),
+                    _buildDifference(unit, historyList, index, overview),
+                  ],
+                ),
               ],
             ),
           ),
         ),
       );
     });
-  }
-
-  Widget _buildTop(List<Parameters> historyList, int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          DateFormat('dd-MM-yyyy h:mm', 'RU').format(historyList[index].date),
-          style: kActiveLabelTextStyle.copyWith(
-              color: Colors.white.withOpacity(0.9)),
-          textScaleFactor: 0.9,
-        ),
-        _buildCurrentWeight(historyList, index),
-      ],
-    );
-  }
-
-  Widget _buildBottom(
-      List<Parameters> historyList, int index, OverviewProvider overview) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        _buildSubtitle(historyList, index),
-        _buildDifference(historyList, index, overview),
-      ],
-    );
   }
 
   Widget _buildSubtitle(List<Parameters> historyList, int index) {
@@ -138,27 +148,8 @@ class HistoryList extends StatelessWidget {
     );
   }
 
-  Widget _buildCurrentWeight(List<Parameters> historyList, int index) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.baseline,
-      children: [
-        Text(
-          historyList[index].weight.toStringAsFixed(1),
-          style: kNumberTextStyle,
-          textScaleFactor: 0.8,
-        ),
-        const SizedBox(width: 2),
-        Text(
-          'кг',
-          style: kNumberTextStyle.copyWith(fontWeight: FontWeight.w500),
-          textScaleFactor: 0.4,
-        )
-      ],
-    );
-  }
-
-  Widget _buildDifference(
-      List<Parameters> historyList, int index, OverviewProvider overview) {
+  Widget _buildDifference(String unit, List<Parameters> historyList, int index,
+      OverviewProvider overview) {
     final weightDifference = index != historyList.length - 1
         ? (historyList[index].weight - historyList[index + 1].weight)
         : 0.0;
@@ -185,7 +176,7 @@ class HistoryList extends StatelessWidget {
         const SizedBox(width: 4),
         if (weightDifference == 0)
           Text(
-            '${weightDifference.abs().toStringAsFixed(1)} кг',
+            '${weightDifference.abs().toStringAsFixed(1)} $unit',
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -193,7 +184,7 @@ class HistoryList extends StatelessWidget {
           ),
         if (weightDifference != 0)
           Text(
-            '${weightDifference.abs().toStringAsFixed(1)} кг',
+            '${weightDifference.abs().toStringAsFixed(1)} $unit',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -223,7 +214,7 @@ class HistoryList extends StatelessWidget {
             color: Colors.white,
             size: 30,
           ),
-          SizedBox(width: 20)
+          SizedBox(width: 20),
         ],
       ),
     );

@@ -4,16 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:bmi_calculator/providers/index.dart';
 
 class CalculationsProvider with ChangeNotifier {
-  final double weight;
+  final int weight;
   final int height;
+  final double units;
   final int age;
   final Gender gender;
 
   CalculationsProvider({
-    this.weight,
-    this.height,
-    this.age,
-    this.gender,
+    @required this.weight,
+    @required this.height,
+    @required this.units,
+    @required this.age,
+    @required this.gender,
   });
 
   double get bmi => weight / pow(height / 100, 2);
@@ -46,6 +48,12 @@ class CalculationsProvider with ChangeNotifier {
         return 0.0;
         break;
     }
+  }
+
+  String idealWeightLabel() {
+    final min = (idealMinWeight * units).toStringAsFixed(1);
+    final max = (idealMaxWeight * units).toStringAsFixed(1);
+    return '$min - $max';
   }
 
   double percentOfHeartRate(int percent) {

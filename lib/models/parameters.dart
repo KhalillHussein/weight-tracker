@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Parameters {
+  final int id;
   final double weight;
   final int height;
   final int age;
@@ -10,6 +11,7 @@ class Parameters {
   final DateTime date;
 
   const Parameters({
+    @required this.id,
     @required this.weight,
     @required this.height,
     @required this.age,
@@ -21,13 +23,14 @@ class Parameters {
 
   factory Parameters.fromMap(Map<String, dynamic> map) {
     return Parameters(
+      id: map['id'],
       weight: map['weight'],
       height: map['height'],
       age: map['age'],
       bmi: map['bmi'],
       idealWeight: map['idealWeight'],
       fatPercent: map['fatPercent'],
-      date: map['date'],
+      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
     );
   }
 }
