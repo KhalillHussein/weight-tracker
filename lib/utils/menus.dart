@@ -20,7 +20,7 @@ List<MenuItem<int>> items = [
   MenuItem<int>(
     id: 3,
     title: 'Настройки',
-    icon: MdiIcons.cog,
+    icon: MdiIcons.cogOutline,
   ),
 ];
 

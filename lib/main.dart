@@ -1,17 +1,12 @@
-import 'package:bmi_calculator/models/parameters.dart';
-import 'package:bmi_calculator/providers/chips.dart';
-import 'package:bmi_calculator/providers/navigation.dart';
-import 'package:bmi_calculator/providers/overview.dart';
-import 'package:bmi_calculator/providers/radio.dart';
-import 'package:bmi_calculator/repositories/calculations.dart';
-import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
 
-import './pages/navigation.dart';
 import 'providers/index.dart';
+import 'repositories/index.dart';
+import 'ui/pages/navigation.dart';
+import 'utils/index.dart';
 
 void main() {
   initializeDateFormatting();
@@ -44,12 +39,12 @@ class BMICalculator extends StatelessWidget {
             weight: input.weight,
             height: input.height,
             age: input.age,
-            gender: input.selectedGender,
+            gender: input.gender,
           ),
         ),
-        ChangeNotifierProxyProvider<RadioProvider, OverviewProvider>(
-          create: (ctx) => OverviewProvider(),
-          update: (ctx, radio, overview) => OverviewProvider()
+        ChangeNotifierProxyProvider<RadioProvider, OverviewRepository>(
+          create: (ctx) => OverviewRepository(),
+          update: (ctx, radio, overview) => OverviewRepository()
             ..weightUnit = radio.getMeasureWeightInterpretation()['unit'],
         ),
         ChangeNotifierProvider(create: (ctx) => NavigationProvider()),

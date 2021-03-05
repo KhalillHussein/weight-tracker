@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
+///Класс, реализующий модель, для хранения данных измерений пользователя.
 class Parameters {
   final int id;
   final double weight;
