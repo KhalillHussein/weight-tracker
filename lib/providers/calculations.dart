@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:bmi_calculator/providers/index.dart';
 
 class CalculationsProvider with ChangeNotifier {
-  final int weight;
+  final double weight;
   final int height;
   final double units;
   final int age;

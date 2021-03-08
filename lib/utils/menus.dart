@@ -1,4 +1,5 @@
 import 'package:drawerbehavior/drawerbehavior.dart';
+import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 List<MenuItem<int>> items = [
@@ -7,10 +8,15 @@ List<MenuItem<int>> items = [
     title: 'ИМТ',
     icon: MdiIcons.scaleBathroom,
   ),
+  // MenuItem<int>(
+  //   id: 1,
+  //   title: 'Зоны ЧСС',
+  //   icon: MdiIcons.heartPulse,
+  // ),
   MenuItem<int>(
     id: 1,
-    title: 'Зоны ЧСС',
-    icon: MdiIcons.heartPulse,
+    title: 'Счетчик калорий',
+    icon: Icons.fastfood_outlined,
   ),
   MenuItem<int>(
     id: 2,

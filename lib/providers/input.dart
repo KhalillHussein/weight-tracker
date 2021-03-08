@@ -34,8 +34,10 @@ class InputProvider with ChangeNotifier {
   Gender gender = Gender.male;
   //Приватная переменная, хранящая значение роста
   int _height = 180;
-  //Приватная переменная, хранящая значение веса
+  //Приватная переменная, хранящая целую часть значения веса
   int _weight = 60;
+  //Приватная переменная, хранящая дробную часть значения веса
+  int _fractionalWeight = 5;
   //Приватная переменная, хранящая значение возраса
   int _age = 20;
 
@@ -48,6 +50,8 @@ class InputProvider with ChangeNotifier {
 
   int get weight => _weight;
 
+  int get fractionalWeight => _fractionalWeight;
+
   int get age => _age;
 
   //Далее приведены методы, используемые для изменения значений переменных
@@ -56,6 +60,11 @@ class InputProvider with ChangeNotifier {
 
   set height(int newHeight) {
     _height = newHeight;
+    notifyListeners();
+  }
+
+  set fractionalWeight(int newFractional) {
+    _fractionalWeight = newFractional;
     notifyListeners();
   }
 
@@ -111,7 +120,7 @@ class InputProvider with ChangeNotifier {
   String labelWeight() {
     switch (currentWeightMeasure) {
       case MeasureWeight.kilograms:
-        return '$_weight';
+        return '$_weight.$_fractionalWeight';
         break;
       case MeasureWeight.pounds:
         return convertedKgToLbs();
@@ -124,7 +133,8 @@ class InputProvider with ChangeNotifier {
 
   ///Метод, преобразующий килограммы в фунты
   String convertedKgToLbs() {
-    final int toLbs = (_weight * weightUnit).round();
-    return "$toLbs";
+    final double toLbs =
+        double.parse('$_weight.$_fractionalWeight') * weightUnit;
+    return toLbs.toStringAsFixed(1);
   }
 }

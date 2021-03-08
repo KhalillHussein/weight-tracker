@@ -17,9 +17,13 @@ class NavigationPage extends StatelessWidget {
       'title': 'ИМТ КАЛЬКУЛЯТОР',
       'page': InputScreen(),
     },
+    // {
+    //   'title': 'ЗОНЫ СЕРДЦЕБИЕНИЯ',
+    //   'page': HeartRateScreen(),
+    // },
     {
-      'title': 'ЗОНЫ СЕРДЦЕБИЕНИЯ',
-      'page': HeartRateScreen(),
+      'title': 'СЧЕТЧИК КАЛОРИЙ',
+      'page': CalorieCounterScreen(),
     },
     {
       'title': 'СТАТИСТИКА',
@@ -37,6 +41,7 @@ class NavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<NavigationProvider>(
       builder: (ctx, model, _) => DrawerScaffold(
+          resizeToAvoidBottomInset: false,
           contentView: Screen(color: Theme.of(context).scaffoldBackgroundColor),
           appBar: AppBar(
             title: Text(

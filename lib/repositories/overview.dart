@@ -31,7 +31,7 @@ class OverviewRepository extends BaseRepository<Parameters> {
     //Пробуем загрузить данные из базы данных
     try {
       //Получение данных из БД
-      final loadedData = await DbService.db.getData();
+      final loadedData = await DbService.db.getData('parameters');
       //Парсинг данных с последующим заполнением списка
       _parameters = [for (final item in loadedData) Parameters.fromMap(item)];
       //Перебор каждого элемента списка, с последующим переводом весовых
@@ -60,21 +60,21 @@ class OverviewRepository extends BaseRepository<Parameters> {
   @override
   Future<void> addData(Map<String, dynamic> map) async {
     startLoading();
-    await DbService.db.insert(map);
+    await DbService.db.insert(map, 'parameters');
     loadData();
   }
 
   //Метод, реализующий удаление данных с указанным id из БД
   @override
   void deleteData(int id) {
-    DbService.db.deleteItem(id);
+    DbService.db.deleteItem(id, 'parameters');
     loadData();
     progressValue();
   }
 
   //Метод реализующий полное удаление данных из таблицы БД
   void wipeData() {
-    DbService.db.clearTable();
+    DbService.db.deleteDatabase();
     loadData();
   }
 
@@ -88,7 +88,7 @@ class OverviewRepository extends BaseRepository<Parameters> {
     final position = (lastItem.weight.round() - firstItem.weight.round()).abs();
 
     //Если разница < 0, то это означает, что пользователю необходимо набрать вес.
-    if (_difference.isNegative) {
+    if (difference.isNegative) {
       _status = WeightStatus.gainWeight;
       //текущее значение веса меньше первоначального - возвращаем 0, т.о.
       //шкала не заполнена, находится на позиции 0.
@@ -96,7 +96,7 @@ class OverviewRepository extends BaseRepository<Parameters> {
         return 0;
       }
       //Если разница > 0, то это означает, что пользователю необходимо сбросить вес.
-    } else if (_difference > 0) {
+    } else if (difference > 0) {
       _status = WeightStatus.loseWeight;
       //текущее значение веса больше первоначального - возвращаем 0, т.о.
       //шкала не заполнена, находится на позиции 0.
@@ -104,12 +104,14 @@ class OverviewRepository extends BaseRepository<Parameters> {
         return 0;
       }
     }
+    print(min(position,
+        (lastItem.idealWeight.round() - firstItem.weight.round()).abs()));
     return min(position,
         (lastItem.idealWeight.round() - firstItem.weight.round()).abs());
   }
 
   //Методы get данные которых будут использованы в других классах
-  double get _difference => firstItem.weight - lastItem.idealWeight;
+  double get difference => firstItem.weight - lastItem.idealWeight;
 
   Parameters get lastItem => _parameters.last;
 

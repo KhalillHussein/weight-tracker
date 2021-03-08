@@ -72,11 +72,39 @@ class Series {
         );
       }).toList();
 
-  //Метод get, создающий массив точек для графика ИМТ
+  //Методы get, создающие массив точек для графиков ИМТ
   List<FlSpot> get spotsBMI => data.map((e) {
         return FlSpot(
           e.date.millisecondsSinceEpoch.toDouble(),
           e.bmi,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsUWBMI => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          18.5,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsNormalBMI => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          25.0,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsOverweightBMI => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          30.0,
+        );
+      }).toList();
+
+  List<FlSpot> get spotsObeseBMI => data.map((e) {
+        return FlSpot(
+          e.date.millisecondsSinceEpoch.toDouble(),
+          35.0,
         );
       }).toList();
 
@@ -137,8 +165,8 @@ class Series {
         break;
       case GraphType.bmi:
         {
-          _minY = [...spotsBMI].map((e) => e.y).reduce(min);
-          _maxY = [...spotsBMI].map((e) => e.y).reduce(max);
+          _minY = [...spotsBMI, ...spotsUWBMI].map((e) => e.y).reduce(min);
+          _maxY = [...spotsBMI, ...spotsObeseBMI].map((e) => e.y).reduce(max);
           return spotsBMI;
         }
         break;

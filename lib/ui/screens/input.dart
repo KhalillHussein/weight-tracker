@@ -20,7 +20,7 @@ class InputScreen extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            margin: const EdgeInsets.all(30.0),
+            margin: const EdgeInsets.all(25.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -60,6 +60,7 @@ class InputScreen extends StatelessWidget {
                         Expanded(
                           child: InputCard(
                             label: 'ВЕС ($unit)',
+                            showSlider: true,
                             value: input.labelWeight(),
                             incFunction: input.incrementWeight,
                             decFunction: input.decrementWeight,

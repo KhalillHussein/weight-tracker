@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +48,7 @@ void showDeleteDialog(BuildContext context) {
             ),
             FlatButton(
               onPressed: () {
-                context.read<OverviewRepository>().wipeData();
+                DbService.db.deleteDatabase();
                 Navigator.pop(context);
               },
               textColor: kAccentColor,

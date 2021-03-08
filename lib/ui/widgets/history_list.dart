@@ -29,7 +29,7 @@ class HistoryList extends StatelessWidget {
             direction: DismissDirection.endToStart,
             onDismissed: (direction) =>
                 overview.deleteData(historyList[index].id),
-            key: Key(historyList[index].date.millisecondsSinceEpoch.toString()),
+            key: Key(historyList[index].id.toString()),
             background: slideLeftBackground(),
             child: ReusableCard(
               backgroundColor: kActiveCardColor,
@@ -54,7 +54,7 @@ class HistoryList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         children: [
                           Text(
-                            historyList[index].weight.toStringAsFixed(0),
+                            historyList[index].weight.toStringAsFixed(1),
                             style: kNumberTextStyle,
                             textScaleFactor: 0.8,
                           ),
@@ -165,11 +165,11 @@ class HistoryList extends StatelessWidget {
           Icon(
             overview.isLoseWeight
                 ? weightDifference > 0
-                    ? Icons.trending_down
-                    : Icons.trending_up
-                : weightDifference < 0
                     ? Icons.trending_up
-                    : Icons.trending_down,
+                    : Icons.trending_down
+                : weightDifference < 0
+                    ? Icons.trending_down
+                    : Icons.trending_up,
             color: overview.isLoseWeight
                 ? weightDifference > 0
                     ? kObeseResultColor

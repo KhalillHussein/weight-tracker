@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/providers/validation.dart';
+import 'package:bmi_calculator/repositories/calories.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -36,7 +38,7 @@ class BMICalculator extends StatelessWidget {
               weight: 0, height: 0, age: 0, gender: Gender.male, units: 0.0),
           update: (ctx, input, calc) => CalculationsProvider(
             units: input.weightUnit,
-            weight: input.weight,
+            weight: double.parse('${input.weight}.${input.fractionalWeight}'),
             height: input.height,
             age: input.age,
             gender: input.gender,
@@ -49,6 +51,8 @@ class BMICalculator extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (ctx) => NavigationProvider()),
         ChangeNotifierProvider(create: (ctx) => ChipsProvider()),
+        ChangeNotifierProvider(create: (ctx) => CaloriesRepository()),
+        ChangeNotifierProvider(create: (ctx) => ValidationProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(

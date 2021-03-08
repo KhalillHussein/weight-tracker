@@ -23,7 +23,7 @@ class WeightProgressIndicator extends StatelessWidget {
                   flex: 2,
                   child: _buildLimits(
                     context,
-                    weight: overview.firstItem.weight.toStringAsFixed(0),
+                    weight: overview.firstItem.weight.toStringAsFixed(1),
                     date: DateFormat('d MMM yyy', 'RU')
                         .format(overview.firstItem.date),
                     // '17 Апреля 2018',
@@ -36,10 +36,21 @@ class WeightProgressIndicator extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: _buildCurrentWeight(context,
                         currentWeight:
-                            overview.lastItem.weight.toStringAsFixed(0)),
+                            overview.lastItem.weight.toStringAsFixed(1)),
                   ),
                 ),
                 const Spacer(),
+                // if (overview.progressValue() <= 1)
+                //   Expanded(
+                //     flex: 2,
+                //     child: _buildLimits(
+                //       context,
+                //       weight: '——.—',
+                //       date: DateFormat('d MMM yyy', 'RU')
+                //           .format(overview.lastItem.date),
+                //     ),
+                //   ),
+                // if (overview.progressValue() > 1)
                 Expanded(
                   flex: 2,
                   child: _buildLimits(

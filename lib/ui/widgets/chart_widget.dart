@@ -38,6 +38,7 @@ class ChartWidget extends StatelessWidget {
       clipData: FlClipData.vertical(),
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
+            fitInsideVertically: true,
             tooltipBgColor: kInactiveCardColor,
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return [
@@ -73,16 +74,38 @@ class ChartWidget extends StatelessWidget {
       maxX: series.maxX,
       minY: series.minY,
       maxY: series.maxY,
-      lineBarsData: type == GraphType.weight
-          ? [
-              _lineBarIdealWeight(series, context),
-              _lineBarAvgWeight(series, context),
-              _lineBarData(series, context),
-            ]
-          : [
-              _lineBarData(series, context),
-            ],
+      lineBarsData: _charts(context, series, type),
     );
+  }
+
+  List<LineChartBarData> _charts(
+      BuildContext context, Series series, GraphType type) {
+    switch (type) {
+      case GraphType.weight:
+        return [
+          _lineBarIdealWeight(series, context),
+          _lineBarAvgWeight(series, context),
+          _lineBarData(series, context),
+        ];
+        break;
+      case GraphType.bmi:
+        return [
+          _lineBarUWBMI(series, context),
+          _lineBarNormalBMI(series, context),
+          _lineBarOverweightBMI(series, context),
+          _lineBarObeseBMI(series, context),
+          _lineBarData(series, context),
+        ];
+        break;
+      case GraphType.fatPercent:
+        return [
+          _lineBarData(series, context),
+        ];
+      default:
+        return [
+          _lineBarData(series, context),
+        ];
+    }
   }
 
   FlGridData _gridData(Series series) {
@@ -182,6 +205,62 @@ class ChartWidget extends StatelessWidget {
       spots: series.spotsAvgWeight,
       isCurved: false,
       colors: [kUWResultColor],
+      barWidth: height * 0.002,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+    );
+  }
+
+  LineChartBarData _lineBarUWBMI(Series series, BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return LineChartBarData(
+      dashArray: [2, 4],
+      spots: series.spotsUWBMI,
+      isCurved: false,
+      colors: [kUWResultColor],
+      barWidth: height * 0.002,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+    );
+  }
+
+  LineChartBarData _lineBarNormalBMI(Series series, BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return LineChartBarData(
+      dashArray: [2, 4],
+      spots: series.spotsNormalBMI,
+      isCurved: false,
+      colors: [kNormalResultColor],
+      barWidth: height * 0.002,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+    );
+  }
+
+  LineChartBarData _lineBarOverweightBMI(Series series, BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return LineChartBarData(
+      dashArray: [2, 4],
+      spots: series.spotsOverweightBMI,
+      isCurved: false,
+      colors: [kOverweightResultColor],
+      barWidth: height * 0.002,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+    );
+  }
+
+  LineChartBarData _lineBarObeseBMI(Series series, BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return LineChartBarData(
+      dashArray: [2, 4],
+      spots: series.spotsObeseBMI,
+      isCurved: false,
+      colors: [kObeseResultColor],
       barWidth: height * 0.002,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),

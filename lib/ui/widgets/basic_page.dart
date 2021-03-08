@@ -45,14 +45,9 @@ class _ConnectionError<T extends BaseRepository> extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'При загрузке данных что-то пошло не так',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            const SizedBox(height: 5),
-            FlatButton(
-              onPressed: () {},
-              textColor: Theme.of(context).accentColor,
-              child: const Text('Повторить попытку'),
+              'Ошибка загрузки данных :(',
+              style: kBodyTextStyle.copyWith(fontWeight: FontWeight.w700),
+              textScaleFactor: 0.9,
             ),
           ],
         ),
@@ -67,55 +62,101 @@ class _EmptyScreen extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(60.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 6,
-              child: Image.asset(
-                'images/drawkit-support-woman-monochrome.png',
-                fit: BoxFit.fitHeight,
-                filterQuality: FilterQuality.high,
-                isAntiAlias: true,
-                height: 250,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'Здесь пусто...',
-                  style: kBodyTextStyle.copyWith(fontWeight: FontWeight.w700),
-                  textScaleFactor: 1.3,
-                ),
-              ),
-            ),
-            Expanded(
-              child: FittedBox(
-                child: Text(
-                  'Отсутствуют данные для просмотра.\n Указать их прямо сейчас?',
-                  style: kInactiveLabelTextStyle.copyWith(height: 1.6),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Consumer<NavigationProvider>(
-              builder: (ctx, navData, _) => OutlineButton(
-                onPressed: () {
-                  navData.currentIndex = 0;
-                },
-                highlightedBorderColor: kActiveCardColor,
-                child: const Text(
-                  "ВВЕСТИ ДАННЫЕ",
-                  style: TextStyle(letterSpacing: 1.7),
-                ),
-              ),
-            ),
-          ],
+        child: Consumer<NavigationProvider>(
+          builder: (ctx, navigation, _) => navigation.currentIndex == 2
+              ? _overviewEmptyScreen()
+              : _caloriesEmptyScreen(),
         ),
       ),
+    );
+  }
+
+  Widget _caloriesEmptyScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Spacer(),
+        Expanded(
+          flex: 6,
+          child: Image.asset(
+            'images/breakfast-colour-1200px.png',
+            fit: BoxFit.scaleDown,
+            filterQuality: FilterQuality.high,
+            isAntiAlias: true,
+            width: 250,
+          ),
+        ),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              'Здесь пока пусто...',
+              style: kBodyTextStyle.copyWith(fontWeight: FontWeight.w700),
+              textScaleFactor: 1.3,
+            ),
+          ),
+        ),
+        Expanded(
+          child: FittedBox(
+            child: Text(
+              'Отслеживайте потребление калорий.\nНачните прямо сейчас!',
+              style: kInactiveLabelTextStyle.copyWith(height: 1.6),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _overviewEmptyScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 6,
+          child: Image.asset(
+            'images/drawkit-support-woman-monochrome.png',
+            fit: BoxFit.fitHeight,
+            filterQuality: FilterQuality.high,
+            isAntiAlias: true,
+            height: 250,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              'Здесь пусто...',
+              style: kBodyTextStyle.copyWith(fontWeight: FontWeight.w700),
+              textScaleFactor: 1.3,
+            ),
+          ),
+        ),
+        Expanded(
+          child: FittedBox(
+            child: Text(
+              'Отсутствуют данные для просмотра.\n Указать их прямо сейчас?',
+              style: kInactiveLabelTextStyle.copyWith(height: 1.6),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Consumer<NavigationProvider>(
+          builder: (ctx, navData, _) => OutlineButton(
+            onPressed: () {
+              navData.currentIndex = 0;
+            },
+            highlightedBorderColor: kActiveCardColor,
+            child: const Text(
+              "УКАЗАТЬ ДАННЫЕ",
+              style: TextStyle(letterSpacing: 1.7),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
