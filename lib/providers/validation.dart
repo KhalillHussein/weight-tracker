@@ -34,7 +34,7 @@ class ValidationProvider with ChangeNotifier {
     if (num.tryParse(value) != null) {
       _cal = ValidationItem(value, null);
     } else {
-      _cal = ValidationItem(null, 'Не число!');
+      _cal = ValidationItem(null, 'Неверный формат числа!');
     }
     notifyListeners();
   }
@@ -43,7 +43,7 @@ class ValidationProvider with ChangeNotifier {
     if (int.tryParse(value) != null) {
       _count = ValidationItem(value, null);
     } else {
-      _count = ValidationItem(null, 'Не число!');
+      _count = ValidationItem(null, 'Неверный формат числа!');
     }
     notifyListeners();
   }

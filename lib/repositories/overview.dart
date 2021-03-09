@@ -104,8 +104,6 @@ class OverviewRepository extends BaseRepository<Parameters> {
         return 0;
       }
     }
-    print(min(position,
-        (lastItem.idealWeight.round() - firstItem.weight.round()).abs()));
     return min(position,
         (lastItem.idealWeight.round() - firstItem.weight.round()).abs());
   }

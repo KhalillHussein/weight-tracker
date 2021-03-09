@@ -10,29 +10,6 @@ class CaloriesRepository extends BaseRepository<Calories> {
   //при загрузке данных из базы данных.
   List<Calories> _parameters = [];
 
-  final List<Map<String, dynamic>> _list = [
-    {
-      'name': 'Кофе',
-      'count': 'x1',
-      'cal': '1',
-    },
-    {
-      'name': 'Бутерброд',
-      'count': 'x2',
-      'cal': '150',
-    },
-    {
-      'name': 'Яйцо',
-      'count': 'x1',
-      'cal': '78',
-    },
-    {
-      'name': 'Яйцо',
-      'count': 'x1',
-      'cal': '78',
-    }
-  ];
-
   //Метод get для получения данных из списка в других классах
   @override
   List<Calories> get parameters => [..._parameters];
@@ -78,7 +55,7 @@ class CaloriesRepository extends BaseRepository<Calories> {
     return sum;
   }
 
-  ///Метод для проверки даты, возвращает true если дата равна сегодняшней, иначе false
+  ///Метод для проверки даты, возвращает true если дата == сегодня, иначе false
   bool isToday(DateTime date) {
     final now = DateTime.now();
     final diff = now.difference(date).inDays;

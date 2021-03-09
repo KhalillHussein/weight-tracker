@@ -52,6 +52,7 @@ class HistoryList extends StatelessWidget {
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
                             historyList[index].weight.toStringAsFixed(1),
@@ -126,6 +127,7 @@ class HistoryList extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
                       historyList[index].fatPercent.toStringAsFixed(1),

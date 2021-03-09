@@ -92,7 +92,6 @@ Widget _buildSlider(BuildContext context) {
         thumbShape: const RetroSliderThumbShape(),
       ),
       child: Slider(
-        min: 0.0,
         value: input.fractionalWeight.toDouble(),
         max: 9.0,
         onChanged: (value) {

@@ -139,6 +139,7 @@ class ResultsScreen extends StatelessWidget {
       CalculationsProvider calculate, InputProvider input) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
           calculate.getFatPercentByGender().toStringAsFixed(1),
@@ -170,17 +171,26 @@ class ResultsScreen extends StatelessWidget {
 
   Widget _buildButton(OverviewRepository overview,
       CalculationsProvider calculate, BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: () {
         overview.addData(toMap(calculate));
         Navigator.pop(context);
       },
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-      color: kInactiveCardColor,
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 45.0),
+        ),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        backgroundColor: MaterialStateProperty.all<Color>(kInactiveCardColor),
+        overlayColor:
+            MaterialStateProperty.all<Color>(Colors.grey.withOpacity(0.1)),
+        textStyle: MaterialStateProperty.all<TextStyle>(
+          TextStyle(letterSpacing: 2, fontWeight: FontWeight.w400),
+        ),
+      ),
       child: const Text(
         'СОХРАНИТЬ',
-        style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.w400),
-        textScaleFactor: 1.1,
+        textScaleFactor: 1.25,
       ),
     );
   }

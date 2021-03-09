@@ -1,8 +1,6 @@
 import 'package:bmi_calculator/services/db_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../repositories/index.dart';
 import '../../utils/index.dart';
 
 Future<T> showBottomRoundDialog<T>({
@@ -12,6 +10,7 @@ Future<T> showBottomRoundDialog<T>({
   return showModalBottomSheet(
     context: context,
     backgroundColor: kPrimaryColor,
+    isScrollControlled: true,
     builder: (context) => child,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -39,19 +38,27 @@ void showDeleteDialog(BuildContext context) {
           ),
           backgroundColor: kActiveCardColor,
           actions: [
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              textColor: kAccentColor,
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+                overlayColor: MaterialStateProperty.all<Color>(
+                    Colors.grey.withOpacity(0.1)),
+              ),
               child: Text('ОТМЕНА'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 DbService.db.deleteDatabase();
                 Navigator.pop(context);
               },
-              textColor: kAccentColor,
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+                overlayColor: MaterialStateProperty.all<Color>(
+                    Colors.grey.withOpacity(0.1)),
+              ),
               child: Text('ДА'),
             ),
           ],

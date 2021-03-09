@@ -29,6 +29,7 @@ class BmiStatusIndicator extends StatelessWidget {
   Widget _buildTopText(OverviewRepository statisticsData) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
           statisticsData.lastItem.bmi.toStringAsFixed(1),

@@ -145,11 +145,19 @@ class _EmptyScreen extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Consumer<NavigationProvider>(
-          builder: (ctx, navData, _) => OutlineButton(
+          builder: (ctx, navData, _) => OutlinedButton(
             onPressed: () {
               navData.currentIndex = 0;
             },
-            highlightedBorderColor: kActiveCardColor,
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+              ),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              overlayColor: MaterialStateProperty.all<Color>(
+                  Colors.grey.withOpacity(0.1)),
+            ),
+            // highlightedBorderColor: kActiveCardColor,
             child: const Text(
               "УКАЗАТЬ ДАННЫЕ",
               style: TextStyle(letterSpacing: 1.7),

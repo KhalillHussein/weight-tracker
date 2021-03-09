@@ -32,6 +32,7 @@ class SliderCard extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitHeight,
                 child: Row(
+                  textBaseline: TextBaseline.alphabetic,
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

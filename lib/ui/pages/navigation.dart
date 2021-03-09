@@ -42,7 +42,7 @@ class NavigationPage extends StatelessWidget {
     return Consumer<NavigationProvider>(
       builder: (ctx, model, _) => DrawerScaffold(
           resizeToAvoidBottomInset: false,
-          contentView: Screen(color: Theme.of(context).scaffoldBackgroundColor),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: Text(
               _screens[model.currentIndex]['title'],

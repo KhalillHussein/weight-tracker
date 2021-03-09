@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/providers/calories_chart.dart';
 import 'package:bmi_calculator/providers/validation.dart';
 import 'package:bmi_calculator/repositories/calories.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,11 @@ class BMICalculator extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => ChipsProvider()),
         ChangeNotifierProvider(create: (ctx) => CaloriesRepository()),
         ChangeNotifierProvider(create: (ctx) => ValidationProvider()),
+        ChangeNotifierProxyProvider<CaloriesRepository, CaloriesChartProvider>(
+          create: (ctx) => CaloriesChartProvider(),
+          update: (ctx, repository, chart) =>
+              CaloriesChartProvider()..calories = repository.parameters,
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(

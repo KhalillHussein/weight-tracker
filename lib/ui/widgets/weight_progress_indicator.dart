@@ -92,6 +92,7 @@ class WeightProgressIndicator extends StatelessWidget {
           fit: BoxFit.fitHeight,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
                 weight,
@@ -130,6 +131,7 @@ class WeightProgressIndicator extends StatelessWidget {
         context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
           currentWeight,

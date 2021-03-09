@@ -139,7 +139,6 @@ class HeartRateScreen extends StatelessWidget {
 
   Widget _buildHeartBeatImage(Color color) {
     return Stack(
-      overflow: Overflow.visible,
       children: [
         Image.asset(
           'images/conifer-pulse.png',
