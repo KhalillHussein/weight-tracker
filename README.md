@@ -13,7 +13,6 @@ The purpose of this project is to develop the light-weight app to control weight
 This project has been built using the [Flutter](https://flutter.io/) framework, which allows to build an app for mobile, desktop & web, from a single codebase.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/menu.png" width="256" hspace="4">
   <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/main.png" width="256" hspace="4">
   <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/result.png" width="256" hspace="4">
   <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/overview.png" width="256" hspace="4">
