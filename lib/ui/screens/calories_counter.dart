@@ -9,7 +9,7 @@ import '../widgets/components/index.dart';
 import '../widgets/index.dart';
 
 ///Класс, реализующий представление экрана с информацией о потребленных калориях.
-class CalorieCounterScreen extends StatelessWidget {
+class CaloriesCounterScreen extends StatelessWidget {
   ///Метод, осуществляющий построение интерфейса пользователя,
   ///будет вызван каждый раз, при изменении состояния (данных) на данном экране.
   @override
@@ -207,7 +207,7 @@ class _TodayCounter extends StatelessWidget {
                     children: [
                       Consumer<CaloriesRepository>(
                         builder: (ctx, cal, _) => Text(
-                          cal.summary().toStringAsFixed(1),
+                          cal.summary().toStringAsFixed(0),
                           style: kNumberTextStyle,
                         ),
                       ),

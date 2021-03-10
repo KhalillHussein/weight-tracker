@@ -1,4 +1,4 @@
-export 'calorie_counter.dart';
+export 'calories_counter.dart';
 export 'input.dart';
 export 'overview.dart';
 export 'results.dart';

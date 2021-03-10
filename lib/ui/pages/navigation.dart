@@ -19,7 +19,7 @@ class NavigationPage extends StatelessWidget {
     },
     {
       'title': 'СЧЕТЧИК КАЛОРИЙ',
-      'page': CalorieCounterScreen(),
+      'page': CaloriesCounterScreen(),
     },
     {
       'title': 'СТАТИСТИКА',

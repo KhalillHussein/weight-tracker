@@ -62,7 +62,7 @@ class CaloriesList extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -81,17 +81,17 @@ class CaloriesList extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Spacer(flex: 2),
+                      const Spacer(flex: 2),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            calories[index].calories.toStringAsFixed(1),
+                            calories[index].calories.toStringAsFixed(0),
                             style: kNumberTextStyle,
                             textScaleFactor: 0.7,
                           ),
-                          SizedBox(width: 3),
+                          const SizedBox(width: 3),
                           Text(
                             'cal',
                             style: kNumberTextStyle,
