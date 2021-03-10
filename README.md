@@ -1,6 +1,6 @@
-# bmi_calculator
+# weight_tracker
 
-A new Flutter application.
+Simple & Powerful Mobile App to control your weight and calories.
 
 ## Getting Started
 
