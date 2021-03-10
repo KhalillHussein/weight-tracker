@@ -20,9 +20,9 @@ This project has been built using the [Flutter](https://flutter.io/) framework, 
 
 ## Features
 
-- **Weight & Calories**: two possibilities in one App.
+- **Weight & Calories**: two possibilities in one app.
 - **Detailed history**: detailed list of all calculations.
-- **Imperial & Metric systems**: perform the input in preffered system.
+- **Imperial & Metric systems**: perform the input in preferred system.
 - **Detailed overview**: view detailed information on a single screen with customizable chart.
 - **History management**: delete or add new information to history list.
 
