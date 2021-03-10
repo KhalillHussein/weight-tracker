@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../models/parameters.dart';
+import '../models/index.dart';
 import '../services/db_service.dart';
 import 'index.dart';
 

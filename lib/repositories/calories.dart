@@ -1,5 +1,4 @@
-import 'package:bmi_calculator/models/calories.dart';
-
+import '../models/index.dart';
 import '../services/db_service.dart';
 import 'index.dart';
 
@@ -29,7 +28,7 @@ class CaloriesRepository extends BaseRepository<Calories> {
     }
   }
 
-  ///Асинхронный метод, через который реализуется добавление данных в БД
+  ///Асинхронный метод, через который реализуется добавление данных в БД.
   @override
   Future<void> addData(Map<String, dynamic> map) async {
     startLoading();
@@ -37,14 +36,14 @@ class CaloriesRepository extends BaseRepository<Calories> {
     loadData();
   }
 
-  ///Метод, реализующий удаление данных с указанным id из БД
+  ///Метод, реализующий удаление данных с указанным id из БД.
   @override
   void deleteData(int id) {
     DbService.db.deleteItem(id, 'calories');
     loadData();
   }
 
-  ///метод для получения числа суммарного кол-ва калорий за сегодня
+  ///метод для получения числа суммарного кол-ва калорий за сегодня.
   double summary() {
     double sum = 0.0;
     for (final item in _parameters) {
@@ -55,7 +54,7 @@ class CaloriesRepository extends BaseRepository<Calories> {
     return sum;
   }
 
-  ///Метод для проверки даты, возвращает true если дата == сегодня, иначе false
+  ///Метод для проверки даты, возвращает true если дата == сегодня, иначе false.
   bool isToday(DateTime date) {
     final now = DateTime.now();
     final diff = now.difference(date).inDays;

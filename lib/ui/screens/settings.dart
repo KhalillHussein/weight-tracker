@@ -7,7 +7,10 @@ import '../../utils/index.dart';
 import '../widgets/components/index.dart';
 import '../widgets/index.dart';
 
+///Класс, реализующий представление экрана настроек приложения.
 class SettingsScreen extends StatelessWidget {
+  ///Метод, осуществляющий построение интерфейса пользователя,
+  ///будет вызван каждый раз, при изменении состояния (данных) на данном экране.
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -69,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 _buildMenuItem(
                   title: 'Версия приложения',
-                  subtitle: 'Текущая версия приложения 0.8',
+                  subtitle: 'Текущая версия приложения 1.0',
                 ),
               ],
             ),
@@ -79,6 +82,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий построение виджета пункта меню "Единицы измерения".
   Widget _buildMeasurementsItem(BuildContext context) {
     return GestureDetector(
       onTap: () => showBottomRoundDialog(
@@ -98,6 +102,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий построение виджета пункта меню "График".
   Widget _buildGraphItem(BuildContext context) {
     return GestureDetector(
       onTap: () => showBottomRoundDialog(
@@ -116,6 +121,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий построение виджета пункта меню "Удалить все данные".
   Widget _buildDeleteItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -158,6 +164,8 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
+///Приватный класс, реализующий построение содержимого
+///диалогового окна "ЕДИНИЦЫ ИЗМЕРЕНИЯ".
 class _SettingsMeasure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -228,6 +236,8 @@ class _SettingsMeasure extends StatelessWidget {
     );
   }
 
+  ///Асинхронный метод реализующий сохранение на локальном хранилище
+  ///выбранного значения единиц измерения роста.
   Future<void> _changeHeightMeasure(
       BuildContext context, MeasureHeight measure) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -238,6 +248,8 @@ class _SettingsMeasure extends StatelessWidget {
     Navigator.pop(context);
   }
 
+  ///Асинхронный метод реализующий сохранение на локальном хранилище
+  ///выбранного значения единиц измерения веса.
   Future<void> _changeWeightMeasure(
       BuildContext context, MeasureWeight measure) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -249,6 +261,8 @@ class _SettingsMeasure extends StatelessWidget {
   }
 }
 
+///Приватный класс, реализующий построение содержимого
+///диалогового окна "ГРАФИК".
 class _SettingsChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -285,6 +299,8 @@ class _SettingsChart extends StatelessWidget {
     );
   }
 
+  ///Асинхронный метод реализующий сохранение на локальном хранилище
+  ///выбранных данных, отображаемых на диаграмме экрана "Статистика".
   Future<void> _changeChartType(BuildContext context, GraphType type) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     context.read<RadioProvider>().currentGraphType = type;

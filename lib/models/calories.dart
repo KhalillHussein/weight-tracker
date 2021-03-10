@@ -1,3 +1,4 @@
+///Класс, реализующий модель хранящую данные о калориях
 class Calories {
   final int id;
   final String name;

@@ -5,7 +5,11 @@ import '../../utils/index.dart';
 import '../widgets/components/index.dart';
 import '../widgets/index.dart';
 
+///Класс, реализующий представление экрана статистики.
+///На данном произведен обзор всех измерений пользователя.
 class OverviewScreen extends StatelessWidget {
+  ///Метод, осуществляющий построение интерфейса пользователя,
+  ///будет вызван каждый раз, при изменении состояния (данных) на данном экране.
   @override
   Widget build(BuildContext context) {
     return BasicPage<OverviewRepository>(
@@ -34,6 +38,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий представление графика на экране обзора
   Widget _buildChart() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,6 +57,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий представление индикатора ИМТ на экране обзора
   Widget _buildBmiStatusIndicator() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,6 +91,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  ///Метод, реализующий всплывающее окно со списком истории измерений
   void _showHistory(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     showBottomRoundDialog(

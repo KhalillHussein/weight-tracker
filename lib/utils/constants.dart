@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+///Список всех констант используемых в приложении.
+///В качестве констант выступают значения цвета компонентов интерфейса
+///и стили текста.
+
 const double kBottomContainerHeight = 65.0;
 const Color kActiveCardColor = Color(0xFF1D1E33);
 const Color kInactiveCardColor = Color(0xFF111428);
@@ -52,18 +56,6 @@ const kPageTransitionsTheme = PageTransitionsTheme(
     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   },
-);
-
-const kCalendarTextStyle = TextStyle(
-  fontSize: 14.0,
-  fontWeight: FontWeight.w400,
-  color: Color(0xFF8D8E98),
-);
-
-const kCalendarDaysOfWeeksTextStyle = TextStyle(
-  fontSize: 14.0,
-  fontWeight: FontWeight.w400,
-  color: Colors.white,
 );
 
 const TextStyle kStatusTextStyle = TextStyle(

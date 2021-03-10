@@ -1,21 +1,31 @@
-import 'package:bmi_calculator/providers/calories_chart.dart';
-import 'package:bmi_calculator/providers/validation.dart';
-import 'package:bmi_calculator/repositories/calories.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'providers/index.dart';
 import 'repositories/index.dart';
 import 'ui/pages/navigation.dart';
 import 'utils/index.dart';
 
+///Основная и обязательная функция [main], являющаяся точкой входа в программу.
+///Вызывает функцию [runApp] для "прикрепления" указанного в качестве параметра
+///виджета(класса) к экрану. Таким образом указанный виджет заполняет экран
+///при запуске приложения. метод [initializeDateFormatting] выполняет
+///инициализацию формата времени с учетом языковых настроек на устройстве
+///пользователя.
 void main() {
   initializeDateFormatting();
   runApp(BMICalculator());
 }
 
+///Родительский виждет для всех остальных виджетов(верхний уровень иерархии древа виджетов),
+///используемых при построении интерфейса приложения.
+///В [MultiProvider] передаются и инициализируются все классы,
+///реализующие шаблон проектирования [Provider]. Т.о. все данные, используемые
+///и изменяющиеся внутри данных классов становятся доступны для "прослушивания"
+///всему приложению.
 class BMICalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

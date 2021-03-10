@@ -1,8 +1,12 @@
-import 'package:bmi_calculator/providers/index.dart';
 import 'package:flutter/material.dart';
 
+import '../providers/index.dart';
 import 'index.dart';
 
+///Класс, представляющий статусы ИМТ в виде констант.
+///Данный класс является синглтоном.
+///Т.о. для доступа к полям класса доступен лишь один экземпляр,
+///созданный внутри данного класса, доступный из любой точки приложения.
 class UserStatus {
   UserStatus._();
   static final UserStatus status = UserStatus._();
@@ -15,6 +19,7 @@ class UserStatus {
   static const String kObese3ResultText = 'ОЖИРЕНИЕ III СТЕПЕНИ';
   static const String kUnknownText = 'НЕИЗВЕСТНО';
 
+  ///Метод, возвращающий статус исходя из значения ИМТ
   String getBmiStatus(double bmi) {
     if (bmi < 18.5) {
       return kUWResultText;
@@ -33,6 +38,8 @@ class UserStatus {
     }
   }
 
+  ///Метод, возвращающий значение цвета для значения процентного содержания
+  ///жира, в зависимости от пола и значения.
   Color resultFatTextColor(double fatPercent, Gender gender) {
     switch (gender) {
       case Gender.female:
@@ -67,6 +74,8 @@ class UserStatus {
     }
   }
 
+  ///Метод, возвращающий значение цвета для значения ИМТ,
+  ///в зависимости от статуса.
   Color resultBmiTextColor(String result) {
     switch (result) {
       case kUWResultText:

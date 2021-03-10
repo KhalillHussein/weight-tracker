@@ -1,5 +1,7 @@
 export 'basic_page.dart';
 export 'bmi_status_indicator.dart';
+export 'calories_chart.dart';
+export 'calories_list.dart';
 export 'chart_widget.dart';
 export 'chips_selector.dart';
 export 'dialogs.dart';

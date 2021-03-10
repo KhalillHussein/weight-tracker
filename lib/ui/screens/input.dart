@@ -1,17 +1,17 @@
-import 'package:bmi_calculator/providers/radio.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../providers/input.dart';
+import '../../providers/index.dart';
 import '../widgets/components/index.dart';
-import '../widgets/gender_card.dart';
-import '../widgets/input_card.dart';
-import '../widgets/slider_card.dart';
+import '../widgets/index.dart';
 import 'index.dart';
 
+///Класс, реализующий представление экрана ИМТ калькулятора.
+///Через него производится указание данных о пользователе.
 class InputScreen extends StatelessWidget {
+  ///Метод, осуществляющий построение интерфейса пользователя,
+  ///будет вызван каждый раз, при изменении состояния (данных) на данном экране.
   @override
   Widget build(BuildContext context) {
     final unit =

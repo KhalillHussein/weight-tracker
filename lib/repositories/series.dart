@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 
-import '../models/parameters.dart';
+import '../models/index.dart';
 import './../providers/index.dart';
 
 ///Класс реализующий создание точек на графике.

@@ -1,18 +1,15 @@
-import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter/material.dart';
+
+import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+///Список пунктов меню
 List<MenuItem<int>> items = [
   MenuItem<int>(
     id: 0,
     title: 'ИМТ',
     icon: MdiIcons.scaleBathroom,
   ),
-  // MenuItem<int>(
-  //   id: 1,
-  //   title: 'Зоны ЧСС',
-  //   icon: MdiIcons.heartPulse,
-  // ),
   MenuItem<int>(
     id: 1,
     title: 'Счетчик калорий',

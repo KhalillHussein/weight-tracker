@@ -17,10 +17,6 @@ class NavigationPage extends StatelessWidget {
       'title': 'ИМТ КАЛЬКУЛЯТОР',
       'page': InputScreen(),
     },
-    // {
-    //   'title': 'ЗОНЫ СЕРДЦЕБИЕНИЯ',
-    //   'page': HeartRateScreen(),
-    // },
     {
       'title': 'СЧЕТЧИК КАЛОРИЙ',
       'page': CalorieCounterScreen(),
@@ -64,13 +60,7 @@ class NavigationPage extends StatelessWidget {
               onMenuItemSelected: (index) => model.currentIndex = index,
             ),
           ],
-          builder: (context, id) => _screens[id]['page']
-          //     IndexedStack(
-          //   index: id,
-          //   children:
-          //       menuWithIcon.items.map((e) => _screens[e.id]['page']).toList(),
-          // ),
-          ),
+          builder: (context, id) => _screens[id]['page']),
     );
   }
 }

@@ -6,7 +6,11 @@ import '../../repositories/index.dart';
 import '../../utils/index.dart';
 import '../widgets/components/index.dart';
 
+///Класс реализующий представление экрана с результатами расчетов ИМТ,
+///идеального веса, процента жира.
 class ResultsScreen extends StatelessWidget {
+  ///Метод, осуществляющий построение интерфейса пользователя,
+  ///будет вызван каждый раз, при изменении состояния (данных) на данном экране.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +52,7 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод реализующий построение виджета с отображением всех результатов.
   Widget _buildCardResult(BuildContext context) {
     final unit =
         context.watch<RadioProvider>().getMeasureWeightInterpretation()['abbr'];
@@ -96,6 +101,8 @@ class ResultsScreen extends StatelessWidget {
     });
   }
 
+  ///Метод осуществляющий построение виджета с отображением информации
+  ///о норме ИМТ.
   Widget _buildBMINormal() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -117,6 +124,8 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод реализующий построение виджета с отображением информации
+  ///о идеальном весе.
   Widget _buildIdealWeight(CalculationsProvider calculate, String unit) {
     return Column(
       children: [
@@ -135,6 +144,8 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод реализующий построение виджета с отображением информации
+  ///о процентном содержании жира.
   Widget _buildFatPercentValue(
       CalculationsProvider calculate, InputProvider input) {
     return Row(
@@ -169,6 +180,7 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод реализующий построение виджета кнопки "Сохранить".
   Widget _buildButton(OverviewRepository overview,
       CalculationsProvider calculate, BuildContext context) {
     return TextButton(
@@ -195,6 +207,10 @@ class ResultsScreen extends StatelessWidget {
     );
   }
 
+  ///Метод для преобразования введенных данных с формы в ассоциативный массив
+  ///с соответствующими ключами. Данный массив будет передан
+  ///в репозиторий [OverviewRepository], через который данные массива будут
+  ///добавлены в БД и отображены на данном экране.
   Map<String, dynamic> toMap(CalculationsProvider value) {
     return <String, dynamic>{
       'id': DateTime(
