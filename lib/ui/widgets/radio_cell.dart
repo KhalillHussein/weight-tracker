@@ -1,5 +1,6 @@
-import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/index.dart';
 
 class RadioCell<T> extends StatelessWidget {
   final T value;

@@ -1,9 +1,9 @@
-import 'package:bmi_calculator/providers/calories_chart.dart';
-import 'package:bmi_calculator/utils/constants.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
+import 'package:fl_chart/fl_chart.dart';
+
+import '../../providers/index.dart';
+import '../../utils/index.dart';
 
 class CaloriesChart extends StatelessWidget {
   @override

@@ -1,11 +1,12 @@
-import 'package:bmi_calculator/models/calories.dart';
-import 'package:bmi_calculator/repositories/calories.dart';
-import 'package:bmi_calculator/ui/widgets/components/index.dart';
-import 'package:bmi_calculator/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/index.dart';
+import '../../repositories/index.dart';
+import '../../utils/index.dart';
+import 'components/index.dart';
 
 /// Food stats for the day
 class CaloriesList extends StatelessWidget {
@@ -72,7 +73,7 @@ class CaloriesList extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                             textScaleFactor: 0.47,
                           ),
-                          SizedBox(height: 6),
+                          const SizedBox(height: 6),
                           Text(
                             'x${calories[index].count}',
                             style: kInactiveLabelTextStyle.copyWith(

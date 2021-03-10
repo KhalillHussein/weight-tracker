@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../models/parameters.dart';
+import '../../models/index.dart';
 import '../../providers/index.dart';
 import '../../repositories/index.dart';
 import '../../utils/index.dart';
