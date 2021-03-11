@@ -7,7 +7,7 @@
 
 ### About the project
 
-The purpose of this project is to develop the light-weight app to control weight in a variety of platforms. A single experience, from a single codebase.
+The purpose of this project is to develop the light-weight app for weight tracking in a variety of platforms. A single experience, from a single codebase.
 
 
 This project has been built using the [Flutter](https://flutter.io/) framework, which allows to build an app for mobile, desktop & web, from a single codebase.
