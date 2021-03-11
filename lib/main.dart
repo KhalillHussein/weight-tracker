@@ -71,6 +71,7 @@ class BMICalculator extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           canvasColor: Colors.transparent,
           scaffoldBackgroundColor: kPrimaryColor,

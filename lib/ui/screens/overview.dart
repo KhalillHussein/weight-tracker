@@ -92,46 +92,95 @@ class OverviewScreen extends StatelessWidget {
   }
 
   ///Метод, реализующий всплывающее окно со списком истории измерений
+  // void _showHistory(BuildContext context) {
+  //   final Size size = MediaQuery.of(context).size;
+  //   showBottomRoundDialog(
+  //     context: context,
+  //     child: SizedBox(
+  //       height: size.height * 0.5,
+  //       child: ShaderMask(
+  //         shaderCallback: (Rect rect) {
+  //           return LinearGradient(
+  //             begin: Alignment.topCenter,
+  //             end: Alignment.bottomCenter,
+  //             colors: [
+  //               kPrimaryColor.withOpacity(0.9),
+  //               Colors.transparent,
+  //               Colors.transparent,
+  //               kPrimaryColor,
+  //             ],
+  //             stops: const [0.0, 0.02, 0.8, 1.0],
+  //           ).createShader(rect);
+  //         },
+  //         blendMode: BlendMode.dstOut,
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const SizedBox(height: 20),
+  //             Container(
+  //               width: 80.0,
+  //               height: 5.0,
+  //               alignment: Alignment.center,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(10.0),
+  //                 color: kInactiveCardColor,
+  //               ),
+  //             ),
+  //             Container(
+  //               margin: const EdgeInsets.only(top: 20.0),
+  //               child: HistoryList(),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   void _showHistory(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     showBottomRoundDialog(
       context: context,
       child: SizedBox(
         height: size.height * 0.5,
-        child: ShaderMask(
-          shaderCallback: (Rect rect) {
-            return LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                kPrimaryColor.withOpacity(0.9),
-                Colors.transparent,
-                Colors.transparent,
-                kPrimaryColor,
-              ],
-              stops: const [0.0, 0.02, 0.8, 1.0],
-            ).createShader(rect);
-          },
-          blendMode: BlendMode.dstOut,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 20),
-              Container(
-                width: 80.0,
-                height: 5.0,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: kInactiveCardColor,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: 50.0,
+              width: size.width,
+              padding: const EdgeInsets.only(right: 50.0, left: 50.0),
+              child: Center(
+                child: Container(
+                  width: 80.0,
+                  height: 5.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: kInactiveCardColor,
+                  ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: HistoryList(),
-              ),
-            ],
-          ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 50.0),
+              child: ShaderMask(
+                  shaderCallback: (Rect rect) {
+                    return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        kPrimaryColor.withOpacity(0.9),
+                        Colors.transparent,
+                        Colors.transparent,
+                        kPrimaryColor,
+                      ],
+                      stops: const [0.0, 0.02, 0.85, 1.0],
+                    ).createShader(rect);
+                  },
+                  blendMode: BlendMode.dstOut,
+                  child: HistoryList()),
+            ),
+          ],
         ),
       ),
     );

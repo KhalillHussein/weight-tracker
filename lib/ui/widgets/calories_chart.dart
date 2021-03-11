@@ -29,7 +29,7 @@ class CaloriesChart extends StatelessWidget {
             tooltipBgColor: kActiveCardColor,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
-                (rod.y - 1).toStringAsFixed(0) + 'cal',
+                '${(rod.y - 1).toStringAsFixed(0)}cal',
                 kInactiveLabelTextStyle.copyWith(fontSize: 14),
               );
             }),
