@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/icon.png" width="200">
+  <img src="https://raw.githubusercontent.com/KhalillHussein/weight-tracker/main/preview/icon.png" width="192">
 </p>
 <h1 align="center">Weight Tracker</h1>
 <h3 align="center">Simple & Powerful Mobile App to control weight and calories</h3>
