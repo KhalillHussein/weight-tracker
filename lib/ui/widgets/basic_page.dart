@@ -79,7 +79,7 @@ class _EmptyScreen extends StatelessWidget {
         Expanded(
           flex: 6,
           child: Image.asset(
-            'images/breakfast-colour-1200px.png',
+            'images/breakfast.png',
             fit: BoxFit.scaleDown,
             filterQuality: FilterQuality.high,
             isAntiAlias: true,
@@ -116,7 +116,7 @@ class _EmptyScreen extends StatelessWidget {
         Expanded(
           flex: 6,
           child: Image.asset(
-            'images/drawkit-support-woman-monochrome.png',
+            'images/drawkit-support-woman.png',
             fit: BoxFit.fitHeight,
             filterQuality: FilterQuality.high,
             isAntiAlias: true,

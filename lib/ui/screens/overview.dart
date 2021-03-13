@@ -116,22 +116,7 @@ class OverviewScreen extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(top: 50.0),
-              child: ShaderMask(
-                  shaderCallback: (Rect rect) {
-                    return LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        kPrimaryColor.withOpacity(0.9),
-                        Colors.transparent,
-                        Colors.transparent,
-                        kPrimaryColor,
-                      ],
-                      stops: const [0.0, 0.02, 0.85, 1.0],
-                    ).createShader(rect);
-                  },
-                  blendMode: BlendMode.dstOut,
-                  child: HistoryList()),
+              child: HistoryList(),
             ),
           ],
         ),
