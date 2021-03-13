@@ -72,9 +72,9 @@ class OverviewRepository extends BaseRepository<Parameters> {
     progressValue();
   }
 
-  //Метод реализующий полное удаление данных из таблицы БД
+  //Метод реализующий полное удаление БД
   void wipeData() {
-    DbService.db.deleteDatabase();
+    DbService.db.clearTable('parameters');
     loadData();
   }
 

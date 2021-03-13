@@ -43,6 +43,12 @@ class CaloriesRepository extends BaseRepository<Calories> {
     loadData();
   }
 
+  //Метод реализующий полное удаление БД
+  void wipeData() {
+    DbService.db.clearTable('calories');
+    loadData();
+  }
+
   ///метод для получения числа суммарного кол-ва калорий за сегодня.
   double summary() {
     double sum = 0.0;

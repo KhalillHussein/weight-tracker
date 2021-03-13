@@ -1,6 +1,7 @@
+import 'package:bmi_calculator/repositories/index.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../services/db_service.dart';
 import '../../utils/index.dart';
 
 Future<T> showBottomRoundDialog<T>({
@@ -31,7 +32,7 @@ void showDeleteDialog(BuildContext context) {
               Radius.circular(5.0),
             ),
           ),
-          title: Text(
+          title: const Text(
             'Удалить все данные',
             style: kTitleTextStyle,
             textScaleFactor: 0.5,
@@ -47,22 +48,26 @@ void showDeleteDialog(BuildContext context) {
                 overlayColor: MaterialStateProperty.all<Color>(
                     Colors.grey.withOpacity(0.1)),
               ),
-              child: Text('ОТМЕНА'),
+              child: const Text('ОТМЕНА'),
             ),
-            TextButton(
-              onPressed: () {
-                DbService.db.deleteDatabase();
-                Navigator.pop(context);
-              },
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(kAccentColor),
-                overlayColor: MaterialStateProperty.all<Color>(
-                    Colors.grey.withOpacity(0.1)),
+            Consumer2<OverviewRepository, CaloriesRepository>(
+              builder: (ctx, overview, calories, _) => TextButton(
+                onPressed: () {
+                  overview.wipeData();
+                  calories.wipeData();
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(kAccentColor),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                      Colors.grey.withOpacity(0.1)),
+                ),
+                child: const Text('ДА'),
               ),
-              child: Text('ДА'),
             ),
           ],
-          content: Text(
+          content: const Text(
             'Вы уверены?',
             style: kInactiveLabelTextStyle,
             textScaleFactor: 0.85,

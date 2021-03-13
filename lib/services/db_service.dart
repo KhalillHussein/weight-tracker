@@ -86,9 +86,8 @@ class DbService {
   }
 
   ///Асинхронный метод, выполняющий запрос на удаление БД.
-  Future<void> deleteDatabase() async {
-    final String databasesPath = await sql.getDatabasesPath();
-    final String pathToDb = path.join(databasesPath, 'user.db');
-    await sql.deleteDatabase(pathToDb);
+  Future<void> clearTable(String table) async {
+    final db = await database;
+    db.delete(table);
   }
 }
